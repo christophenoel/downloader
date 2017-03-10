@@ -1,0 +1,19 @@
+<jxb:bindings version="1.0"
+                   xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+              jxb:extensionBindingPrefixes="xjc" >
+
+        <!--
+            Change since version 2.0 of the j-m-p:
+
+        Note that the schemaLocation path must point to the XSD file
+        relative to *this* file, rather than the basedir.
+    -->
+    <jxb:bindings schemaLocation="./Downloader.xsd" node="//xsd:schema">
+        <jxb:globalBindings>
+            <xjc:simple />
+        </jxb:globalBindings>
+    </jxb:bindings>
+
+</jxb:bindings>

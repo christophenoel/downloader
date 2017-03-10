@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Gerhard Triebnig (EOX IT Services GmbH) bearbeitet -->
+<!-- edited with XMLSpy v2016 rel. 2 sp1 (x64) (http://www.altova.com) by Joel Lim (spacebel SA) -->
+<xs:schema xmlns="http://proba-v-mep.esa.int/schemas/downloadmanager" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://proba-v-mep.esa.int/schemas/downloadmanager" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:simpleType name="statusType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOT_STARTED"/>
+			<xs:enumeration value="IDLE"/>
+			<xs:enumeration value="RUNNING"/>
+			<xs:enumeration value="CANCELLED"/>
+			<xs:enumeration value="IN_ERROR"/>
+			<xs:enumeration value="COMPLETED"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="productType">
+		<xs:sequence>
+			<xs:element name="URL" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>URL of product to download.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downloadDirectory" type="xs:string" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The path is relative to the Download Manager root download directory.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="progressType">
+		<xs:sequence>
+			<xs:element name="downloadedSize" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>The number of bytes that have been downloaded for this product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="message" type="xs:string" minOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A user-friendly message related to the download progress of the product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="progressPercentage" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>The percentage of this product which has been downloaded.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="statusType">
+				<xs:annotation>
+					<xs:documentation>The download status of this product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="productStatusType">
+		<xs:sequence>
+			<xs:element name="productURL" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>URL of product to download.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="downloadDirectory" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The path is relative to the Download Manager root download directory.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="completedDownloadPath" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The absolute path of the product once it has been completed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalFileSize" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>The size of the file(s) within this product in bytes.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The name of the downloaded product on the file system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productProgress" type="progressType">
+				<xs:annotation>
+					<xs:documentation>Download progress for product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AsyncDownloadRequestType">
+		<xs:annotation>
+			<xs:documentation>Request to download a list of products</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>User-friendly name of the download request.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="product" type="productType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AsyncDownloadResponseType">
+		<xs:sequence>
+			<xs:element name="identifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The identifier to be used to obtain status or to cancel the download.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AsyncDownloadStatusType">
+		<xs:sequence>
+			<xs:element name="identifier" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The identifier to be used to obtain status or to cancel the download.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>User-friendly name of the download request.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productStatus" type="productStatusType" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="DownloadRequest" type="AsyncDownloadRequestType"/>
+	<xs:element name="DownloadResponse" type="AsyncDownloadResponseType"/>
+	<xs:element name="DownloadStatus" type="AsyncDownloadStatusType"/>
+		<xs:element name="Identifier" type="xs:string"/>        
+</xs:schema>

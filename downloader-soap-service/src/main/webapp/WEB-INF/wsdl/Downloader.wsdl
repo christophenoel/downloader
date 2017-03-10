@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dl="http://proba-v-mep.esa.int/schemas/downloadmanager" xmlns:tns="http://esa.int/ese/services/downloader" targetNamespace="http://esa.int/ese/services/downloader">
+	<wsdl:types>
+		<xs:schema>
+			<xs:import namespace="http://proba-v-mep.esa.int/schemas/downloadmanager" schemaLocation="./Downloader.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+        <wsdl:message name="GetStatusRequestMessage">
+		<wsdl:part name="parameter" element="dl:Identifier"/>
+	</wsdl:message>
+	<wsdl:message name="GetStatusResponseMessage">
+		<wsdl:part name="parameter" element="dl:DownloadStatus"/>
+	</wsdl:message>
+        <wsdl:message name="DeleteRequestMessage">
+		<wsdl:part name="parameter" element="dl:Identifier"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteResponseMessage">
+		<wsdl:part name="parameter" element="dl:DownloadStatus"/>
+	</wsdl:message>
+	<wsdl:message name="DownloadRequestMessage">
+		<wsdl:part name="parameter" element="dl:DownloadRequest"/>
+	</wsdl:message>
+	<wsdl:message name="DownloadResponseMessage">
+		<wsdl:part name="parameter" element="dl:Identifier"/>
+	</wsdl:message>
+	<wsdl:portType name="DownloaderWebServicePortType">
+		<wsdl:operation name="download">
+			<wsdl:input message="tns:DownloadRequestMessage"/>
+			<wsdl:output message="tns:DownloadResponseMessage"/>
+		</wsdl:operation>
+                <wsdl:operation name="getStatus">
+			<wsdl:input message="tns:GetStatusRequestMessage"/>
+			<wsdl:output message="tns:GetStatusResponseMessage"/>
+		</wsdl:operation>
+                <wsdl:operation name="delete">
+			<wsdl:input message="tns:DeleteRequestMessage"/>
+			<wsdl:output message="tns:DeleteResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="DownloaderWebServiceBinding" type="tns:DownloaderWebServicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="download">
+			<soap:operation soapAction="urn:#download"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+                <wsdl:operation name="getStatus">
+			<soap:operation soapAction="urn:#getStatus"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+                <wsdl:operation name="delete">
+			<soap:operation soapAction="urn:#delete"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="DownloaderWebService">
+		<wsdl:port name="DownloaderWebServiceInterfacePort" binding="tns:DownloaderWebServiceBinding">
+			<soap:address location="No target address"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

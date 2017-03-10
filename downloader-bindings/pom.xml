@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>Downloader</artifactId>
+        <groupId>esa.mep.downloader</groupId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>esa.mep.downloader</groupId>
+    <artifactId>downloader-bindings</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Downloader Bindings [jar]</name>
+
+    <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-basics</artifactId>
+            <version>0.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-fluent-api</artifactId>
+            <version>3.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+         
+           
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.13.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <schemaIncludes>
+                                <include>jaxb/downloader-bindings/*.xsd</include>
+                            </schemaIncludes>
+                            <bindingDirectory>src/main/resources</bindingDirectory>
+                            <bindingIncludes>
+                                <include>**/*.xjb</include>
+                            </bindingIncludes>
+                            
+                            <episodeFile>${project.build.directory}/generated-sources/xjc/META-INF/jaxb-downloader-bindings.episode</episodeFile>
+                        </configuration>
+                        <id>jaxb-generate-downloader-bindings</id>
+                    </execution>
+                </executions>
+                <configuration>
+                    <extension>true</extension>
+                    <args>
+                        <arg>-XfixJAXB1058</arg>
+                        <arg>-XtoString</arg>
+                        <arg>-Xequals</arg>
+                        <arg>-XhashCode</arg>
+                        <arg>-Xcopyable</arg>
+                        <arg>-Xmergeable</arg>
+                        <arg>-Xsetters</arg>
+                        <arg>-Xwildcard</arg>
+                        <arg>-Xinject-code</arg>
+                        <arg>-Xinheritance</arg>
+                        <arg>-Xsimplify</arg>
+                        <arg>-XenumValue</arg>
+                        <arg>-Xfluent-api</arg>
+                    </args>
+                    
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                            <artifactId>jaxb2-basics</artifactId>
+                            <version>0.11.0</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                            <artifactId>jaxb2-fluent-api</artifactId>
+                            <version>3.0</version>
+                        </plugin>
+                    </plugins>
+                    <catalog>src/main/resources/jaxb/catalog.xml</catalog>
+                    <catalogResolver>org.jvnet.jaxb2.maven2.resolver.tools.ClasspathCatalogResolver</catalogResolver>
+                    <forceRegenerate>true</forceRegenerate>
+                    <generateDirectory>${project.build.directory}/generated-sources/xjc</generateDirectory>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
