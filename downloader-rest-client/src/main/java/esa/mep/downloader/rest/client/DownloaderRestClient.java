@@ -66,9 +66,27 @@ public class DownloaderRestClient {
     public <T> T deleteDownload_JSON(Class<T> responseType, String identifier) throws ClientErrorException {
         return webTarget.path(java.text.MessageFormat.format("download/{0}", new Object[]{identifier})).request(javax.ws.rs.core.MediaType.APPLICATION_JSON).delete(responseType);
     }
+    
+    public <T> T postExpandUrl_XML(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("expandurl").request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), responseType);
+    }
+
+    public <T> T postExpandUrl_JSON(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("expandurl").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+    }
+
+    public <T> T postGetConfiguration_XML(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("configuration").request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), responseType);
+    }
+
+    public <T> T postGetConfiguration_JSON(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("configuration").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);
+    }
 
     public void close() {
         client.close();
     }
+    
+    
     
 }

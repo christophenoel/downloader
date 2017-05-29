@@ -5,12 +5,11 @@
  */
 package esa.mep.downloader.soap;
 
-import _int.esa.proba_v_mep.schemas.downloadmanager.DownloadRequest;
-import _int.esa.proba_v_mep.schemas.downloadmanager.DownloadResponse;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ObjectFactory;
+import _int.esa.proba_v_mep.schemas.downloader.DownloadRequest;
+import _int.esa.proba_v_mep.schemas.downloader.DownloadResponse;
+import _int.esa.proba_v_mep.schemas.downloader.ObjectFactory;
 import esa.mep.downloader.logic.DownloaderLogic;
 import javax.ejb.EJB;
-
 import javax.jws.WebService;
 
 

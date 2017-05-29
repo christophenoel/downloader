@@ -15,14 +15,14 @@
  */
 package esa.mep.downloader.util;
 
-import _int.esa.proba_v_mep.schemas.downloadmanager.DownloadRequest;
-import _int.esa.proba_v_mep.schemas.downloadmanager.DownloadStatus;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ObjectFactory;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProductStatusType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProductType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProgressType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.StatusType;
-import int_.esa.eo.ngeo.downloadmanager.plugin.EDownloadStatus;
+import _int.esa.proba_v_mep.schemas.downloader.DownloadRequest;
+import _int.esa.proba_v_mep.schemas.downloader.DownloadStatus;
+import _int.esa.proba_v_mep.schemas.downloader.ObjectFactory;
+import _int.esa.proba_v_mep.schemas.downloader.ProductStatusType;
+import _int.esa.proba_v_mep.schemas.downloader.ProductType;
+import _int.esa.proba_v_mep.schemas.downloader.ProgressType;
+import _int.esa.proba_v_mep.schemas.downloader.StatusType;
+import esa.mep.downloader.plugin.EDownloadStatus;
 import java.util.ArrayList;
 import java.util.List;
 

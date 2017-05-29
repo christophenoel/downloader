@@ -1,4 +1,4 @@
-package int_.esa.eo.ngeo.downloadmanager.exception;
+package esa.mep.downloader.exception;
 
 /**
 * <p>

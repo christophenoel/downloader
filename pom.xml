@@ -11,12 +11,10 @@
     <name>Downloader Project</name>
   <modules>
     <module>downloader-bindings</module>
-    <module>download-manager-plugin-interface</module>
+    <module>downloader-plugin-interface</module>
     <module>downloader-logic-ejb</module>
-     <module>downloader-rest-service</module>
+    <module>downloader-rest-service</module>
     <module>downloader-rest-client</module>
-    <module>downloader-soap-service</module>
-    
-    
+    <module>downloader-soap-service</module>    
   </modules>
 </project>

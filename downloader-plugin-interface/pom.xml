@@ -6,14 +6,16 @@
         <artifactId>Downloader</artifactId>
         <version>1.0.0</version>
     </parent>
-    <groupId>int_.esa.eo.ngeo</groupId>
-    <artifactId>download-manager-plugin-interface</artifactId>
-    <version>1.6</version>
+    <groupId>esa.mep.downloader</groupId>
+    <artifactId>downloader-plugin-interface</artifactId>
+    <version>1.0.0</version>
         
     <packaging>jar</packaging>
-    <name>Ngeo Plugin Interface [jar]</name>
+    <name>Downloader Plugin Interface [jar]</name>
+    
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
+    
 </project>

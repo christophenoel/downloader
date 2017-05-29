@@ -15,18 +15,15 @@
  */
 package esa.mep.downloader.logic;
 
-import _int.esa.proba_v_mep.schemas.downloadmanager.DownloadRequest;
-import _int.esa.proba_v_mep.schemas.downloadmanager.DownloadStatus;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ObjectFactory;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProductStatusType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProductType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProgressType;
+import _int.esa.proba_v_mep.schemas.downloader.DownloadRequest;
+import _int.esa.proba_v_mep.schemas.downloader.DownloadStatus;
+import _int.esa.proba_v_mep.schemas.downloader.ProductStatusType;
+import _int.esa.proba_v_mep.schemas.downloader.ProgressType;
+import esa.mep.downloader.exception.DMPluginException;
+import esa.mep.downloader.plugin.EDownloadStatus;
 import esa.mep.downloader.products.ProductDownload;
 import esa.mep.downloader.util.DownloaderBindings;
-import int_.esa.eo.ngeo.downloadmanager.exception.DMPluginException;
-import int_.esa.eo.ngeo.downloadmanager.plugin.EDownloadStatus;
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +41,7 @@ public class DownloadTask {
 
     private DownloadRequest request;
     private String identifier;
-    private DownloadStatus status;
+    private DownloadStatus status;    
     private Map<String, ProductDownload> productDownloads;
 
     public Map<String, ProductDownload> getProductDownloads() {

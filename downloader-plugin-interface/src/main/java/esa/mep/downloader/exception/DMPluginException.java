@@ -1,4 +1,4 @@
-package int_.esa.eo.ngeo.downloadmanager.exception;
+package esa.mep.downloader.exception;
 
 /**
  * <p>
@@ -17,17 +17,17 @@ package int_.esa.eo.ngeo.downloadmanager.exception;
  * 
  * <ul>
  * <li>
- * {@link int_.esa.eo.ngeo.downloadmanager.exception.AuthenticationException} -
+ * {@link esa.mep.downloader.exception.AuthenticationException} -
  * Unable to authenticate with UM-SSO</li>
  * <li>
- * {@link int_.esa.eo.ngeo.downloadmanager.exception.FileSystemWriteException} -
+ * {@link esa.mep.downloader.exception.FileSystemWriteException} -
  * e.g. disk full, a write lock on file to be written to.</li>
  * <li>
- * {@link int_.esa.eo.ngeo.downloadmanager.exception.ProductUnavailableException}
+ * {@link esa.mep.downloader.exception.ProductUnavailableException}
  * - The plugin has been unable to download the product after a number of
  * retries.</li>
  * <li>
- * {@link int_.esa.eo.ngeo.downloadmanager.exception.UnexpectedResponseException}
+ * {@link esa.mep.downloader.exception.UnexpectedResponseException}
  * - for example an HTTP response code which is not expected from a Product
  * Facility.</li>
  * </ul>

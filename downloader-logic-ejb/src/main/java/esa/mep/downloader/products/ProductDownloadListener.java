@@ -15,13 +15,13 @@
  */
 package esa.mep.downloader.products;
 
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProgressType;
+import _int.esa.proba_v_mep.schemas.downloader.ProgressType;
+import esa.mep.downloader.exception.DMPluginException;
 import esa.mep.downloader.logic.DownloadManager;
 import esa.mep.downloader.logic.DownloadTask;
+import esa.mep.downloader.plugin.EDownloadStatus;
+import esa.mep.downloader.plugin.IProductDownloadListener;
 import esa.mep.downloader.util.DownloaderBindings;
-import int_.esa.eo.ngeo.downloadmanager.exception.DMPluginException;
-import int_.esa.eo.ngeo.downloadmanager.plugin.EDownloadStatus;
-import int_.esa.eo.ngeo.downloadmanager.plugin.IProductDownloadListener;
 import java.io.File;
 import javax.ejb.EJB;
 

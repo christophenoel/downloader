@@ -19,11 +19,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
+    <dependencies>        
         <dependency>
-            <groupId>int_.esa.eo.ngeo</groupId>
-            <artifactId>mep-download-manager-http-plugin</artifactId>
+            <groupId>esa.mep.downloader</groupId>
+            <artifactId>downloader-http-plugin</artifactId>
             <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>esa.mep.downloader</groupId>
+            <artifactId>downloader-ftp-plugin</artifactId>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -32,15 +37,20 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>int_.esa.eo.ngeo</groupId>
-            <artifactId>download-manager-plugin-interface</artifactId>
-            <version>1.6</version>
-        </dependency>
+            <groupId>esa.mep.downloader</groupId>
+            <artifactId>downloader-plugin-interface</artifactId>
+            <version>1.0.0</version>            
+        </dependency>        
         <dependency>
             <groupId>esa.mep.downloader</groupId>
             <artifactId>downloader-bindings</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.7</version>
+        </dependency>        
     </dependencies>
 
     <build>

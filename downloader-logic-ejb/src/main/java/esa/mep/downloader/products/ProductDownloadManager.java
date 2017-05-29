@@ -15,16 +15,17 @@
  */
 package esa.mep.downloader.products;
 
-import esa.mep.downloader.plugin.PluginFactory;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProductType;
+import _int.esa.proba_v_mep.schemas.downloader.ProductType;
 import esa.mep.downloader.config.DownloaderConfig;
+import esa.mep.downloader.exception.DMPluginException;
 import esa.mep.downloader.logic.DownloadTask;
-import int_.esa.eo.ngeo.downloadmanager.exception.DMPluginException;
-import int_.esa.eo.ngeo.downloadmanager.plugin.IDownloadPlugin;
+import esa.mep.downloader.plugin.IDownloadPlugin;
+import esa.mep.downloader.plugin.PluginConfiguration;
+import esa.mep.downloader.plugin.PluginFactory;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 
@@ -36,20 +37,27 @@ import javax.ejb.Singleton;
 @Singleton
 public class ProductDownloadManager {
 
-    private PluginFactory pluginFactory = new PluginFactory();
-  
+    @EJB
+    private PluginFactory pluginFactory;
+
     @EJB
     private DownloaderConfig config;
-    
+
     public IDownloadPlugin getPlugin(ProductType product) {
-        IDownloadPlugin downloadPlugin = pluginFactory.getPlugin(product.getURL());
-        return downloadPlugin;
-        /**
-         * ProductDownloadListener productDownloadListener = new
-         * ProductDownloadListener(product.getUuid());
-         * productDownloadListener.registerObserver(this);
-         *
-         */
+        return pluginFactory.getPlugin(product.getURL());
+    }
+
+    public String[] expandUrl(URI uri) throws DMPluginException {
+        IDownloadPlugin plugin = pluginFactory.getPlugin(uri.toString());
+        if (plugin != null) {
+            return plugin.expandUrl(uri);
+        } else {
+            throw new DMPluginException(String.format("No available plugin for url %s", uri.toString()));
+        }
+    }
+
+    public PluginConfiguration[] getPluginConfigs(String protocol, String[] servers) {
+        return pluginFactory.getDownloadPluginInfo(protocol, servers);
     }
 
     public void downloadProducts(DownloadTask task) throws URISyntaxException, DMPluginException {
@@ -58,10 +66,14 @@ public class ProductDownloadManager {
         for (ProductType downloadEntry : task.getRequest().getProducts()) {
             String url = downloadEntry.getURL();
             IDownloadPlugin plugin = getPlugin(downloadEntry);
-            ProductDownload download = new ProductDownload(downloadEntry, plugin, task);
-            ProductDownloadListener productListener = new ProductDownloadListener(task, download);
-            productDownloads.put(url, download);
-            download.start(productListener, config.getDownloaderRootDirectory());
+            if (plugin != null) {
+                ProductDownload download = new ProductDownload(downloadEntry, plugin, task);
+                ProductDownloadListener productListener = new ProductDownloadListener(task, download);
+                productDownloads.put(url, download);
+                download.start(productListener, config.getBaseDownloadDirectory());
+            } else {
+                throw new DMPluginException(String.format("No available plugin for url %s", url));
+            }
         }
     }
 

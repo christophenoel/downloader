@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<account>
+		<server>probav.mep.vito.be</server>
+		<username>vito</username>
+		<password>vito</password>		
+	</account>
+	<account>
+		<server>probav.mep.spacebel.be</server>
+		<username>spacebel</username>
+		<password>spacebel</password>		
+	</account>
+    <account>
+		<server>pdfintegration.vgt.vito.be</server>
+		<username>esedataprovider</username>
+		<password>esedataprovider</password>		
+	</account>
+	<account>
+		<server>scihub.copernicus.eu</server>
+		<username>tth</username>
+		<password>tmtri79</password>		
+	</account>
+</configuration>

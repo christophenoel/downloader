@@ -15,21 +15,16 @@
  */
 package esa.mep.downloader.products;
 
-import _int.esa.proba_v_mep.schemas.downloadmanager.ObjectFactory;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProductStatusType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProductType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.ProgressType;
-import _int.esa.proba_v_mep.schemas.downloadmanager.StatusType;
+import _int.esa.proba_v_mep.schemas.downloader.ProductType;
+import esa.mep.downloader.exception.DMPluginException;
 import esa.mep.downloader.logic.DownloadTask;
-import int_.esa.eo.ngeo.downloadmanager.exception.DMPluginException;
-import int_.esa.eo.ngeo.downloadmanager.plugin.EDownloadStatus;
-import int_.esa.eo.ngeo.downloadmanager.plugin.IDownloadPlugin;
-import int_.esa.eo.ngeo.downloadmanager.plugin.IDownloadProcess;
+import esa.mep.downloader.plugin.EDownloadStatus;
+import esa.mep.downloader.plugin.IDownloadPlugin;
+import esa.mep.downloader.plugin.IDownloadProcess;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.UUID;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -42,8 +37,6 @@ public class ProductDownload {
     private IDownloadPlugin plugin;
     private IDownloadProcess process;
 
-   
-    
     ProductDownload(ProductType downloadEntry, IDownloadPlugin plugin, DownloadTask task) {
         id = UUID.randomUUID().toString();
         this.product = downloadEntry;
@@ -93,7 +86,8 @@ public class ProductDownload {
     public void setPlugin(IDownloadPlugin plugin) {
         this.plugin = plugin;
     }
-public IDownloadProcess getProcess() {
+
+    public IDownloadProcess getProcess() {
         return process;
     }
 
@@ -102,14 +96,15 @@ public IDownloadProcess getProcess() {
     }
 
     public IDownloadProcess start(ProductDownloadListener productListener, String downloaderRootDirectory) throws URISyntaxException, DMPluginException {
-       // in case of async call @ejb ProductDownloadManager in async mode instead of this
-     this.process = plugin.createDownloadProcess(new URI(this.getProduct().getURL()), Paths.get(downloaderRootDirectory,this.getProduct().getDownloadDirectory()).toFile(), null, null, productListener, null, 0, null, null);
-     return this.process;
+        // in case of async call @ejb ProductDownloadManager in async mode instead of this
+        this.process = plugin.createDownloadProcess(new URI(this.getProduct().getURL()), Paths.get(downloaderRootDirectory, this.getProduct().getDownloadDirectory()).toFile(), null, null, productListener, null, 0, null, null);
+        this.process.startDownload();
+
+        return this.process;
     }
 
     public EDownloadStatus cancel() throws DMPluginException {
         return this.getProcess().cancelDownload();
     }
-
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Gerhard Triebnig (EOX IT Services GmbH) bearbeitet -->
 <!-- edited with XMLSpy v2016 rel. 2 sp1 (x64) (http://www.altova.com) by Joel Lim (spacebel SA) -->
-<xs:schema xmlns="http://proba-v-mep.esa.int/schemas/downloadmanager" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://proba-v-mep.esa.int/schemas/downloadmanager" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns="http://proba-v-mep.esa.int/schemas/downloader" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://proba-v-mep.esa.int/schemas/downloader" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:simpleType name="statusType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="NOT_STARTED"/>
@@ -19,7 +19,7 @@
 					<xs:documentation>URL of product to download.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="downloadDirectory" type="xs:string" minOccurs="1">
+			<xs:element name="downloadDirectory" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>The path is relative to the Download Manager root download directory.</xs:documentation>
 				</xs:annotation>
@@ -43,15 +43,23 @@
 									</xs:annotation>
 									<xs:simpleType>
 										<xs:restriction base="xs:string">
-											<xs:enumeration value="md4"/>
-											<xs:enumeration value="md5"/>
-											<xs:enumeration value="sha1"/>
-											<xs:enumeration value="sha256"/>
-											<xs:enumeration value="sha384"/>
-											<xs:enumeration value="sha512"/>
-											<xs:enumeration value="rmd160"/>
-											<xs:enumeration value="tiger"/>
-											<xs:enumeration value="crc32"/>
+											<xs:enumeration value="MD2"/>
+											<xs:enumeration value="MD5"/>
+											<xs:enumeration value="SHA-1"/>
+											<xs:enumeration value="SHA-256"/>
+											<xs:enumeration value="SHA-384"/>
+											<xs:enumeration value="SHA-512"/>
+											<!--   
+<xs:enumeration value="md4"/>
+<xs:enumeration value="md5"/>
+<xs:enumeration value="sha1"/>
+<xs:enumeration value="sha256"/>
+<xs:enumeration value="sha384"/>
+<xs:enumeration value="sha512"/>
+<xs:enumeration value="rmd160"/>
+<xs:enumeration value="tiger"/>
+<xs:enumeration value="crc32"/>
+                                            -->
 										</xs:restriction>
 									</xs:simpleType>
 								</xs:attribute>
@@ -69,7 +77,7 @@
 					<xs:documentation>The number of bytes that have been downloaded for this product.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="message" type="xs:string" minOccurs="1">
+			<xs:element name="message" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>A user-friendly message related to the download progress of the product.</xs:documentation>
 				</xs:annotation>
@@ -82,6 +90,11 @@
 			<xs:element name="status" type="statusType">
 				<xs:annotation>
 					<xs:documentation>The download status of this product.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="statusCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Is either HTTP or FTP status code.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
@@ -130,7 +143,7 @@
 					<xs:documentation>User-friendly name of the download request.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="product" type="productType" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="product" type="productType" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="AsyncDownloadResponseType">
@@ -154,11 +167,114 @@
 					<xs:documentation>User-friendly name of the download request.</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="productStatus" type="productStatusType" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="productStatus" type="productStatusType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DownloaderExceptionType">
+		<xs:sequence>
+			<xs:element name="status" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>HTTP Error status code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="code" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Internal code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="message" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Short description of the error.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="developerMessage" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Detailed message optionally including stack trace in case of unexpected exception.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServerSelectionType">
+		<xs:sequence>
+			<xs:element name="protocol" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Is either HTTP or FTP. All protocols are selected if omitted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The configuration of these particular servers is returned. If none specified, the configuration for all servers of the specified protocol is returned.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExpandURLRequestType">
+		<xs:sequence>
+			<xs:element name="url" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Expand the FTP URL to a list of URLs to the leaf files.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ExpandURLResponseType">
+		<xs:sequence>
+			<xs:element name="url" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>List of URLs to the leaf files.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetConfigurationRequestType">
+		<xs:sequence>
+			<xs:element name="servers" type="ServerSelectionType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServerConfigurationType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Name or URL of the server.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protocol" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>HTTP or FTP.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>User name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maxConnections" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Maximum number of connections to this server.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServersConfigurationType">
+		<xs:sequence>
+			<xs:element name="server" type="ServerConfigurationType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GetConfigurationResponseType">
+		<xs:sequence>
+			<xs:element name="servers" type="ServersConfigurationType"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:element name="DownloadRequest" type="AsyncDownloadRequestType"/>
 	<xs:element name="DownloadResponse" type="AsyncDownloadResponseType"/>
 	<xs:element name="DownloadStatus" type="AsyncDownloadStatusType"/>
-		<xs:element name="Identifier" type="xs:string"/>        
+	<xs:element name="ExpandURLRequest" type="ExpandURLRequestType"/>
+	<xs:element name="ExpandURLResponse" type="ExpandURLResponseType"/>
+	<xs:element name="GetConfigurationRequest" type="GetConfigurationRequestType">
+		<xs:annotation>
+			<xs:documentation>Get Downloader configuration information.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="GetConfigurationResponse" type="GetConfigurationResponseType"/>
+	<xs:element name="DownloaderException" type="DownloaderExceptionType"/>
 </xs:schema>
