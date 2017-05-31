@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+		<server>earthexplorer.usgs.gov</server>
+		<username>vito</username>
+		<password>vito</password>
+                <maxconnection></maxconnection>
+</configuration>
