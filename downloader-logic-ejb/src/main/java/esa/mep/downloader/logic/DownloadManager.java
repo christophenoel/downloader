@@ -55,8 +55,9 @@ public class DownloadManager {
         DownloadTask task = new DownloadTask(request, identifier);
 
         LOGGER.debug("Create release schedule for task: " + identifier);
+
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutorService.schedule(new AutoReleaseDownloadTask(this, identifier), config.getTaskDuration(), TimeUnit.HOURS);
+        scheduledExecutorService.schedule(new AutoReleaseDownloadTask(this, task, config.getBaseDownloadDirectory()), config.getTaskDuration(), TimeUnit.HOURS);
         scheduledExecutorService.shutdown();
 
         return task;
@@ -131,11 +132,14 @@ public class DownloadManager {
             LOGGER.debug(String.format("Create new schedule for task %s .", identifier));
         }
 
-        ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
-        ScheduledFuture<?> releaseSchedule = scheduledExecutorService.schedule(new AutoReleaseDownloadTask(this, identifier), config.getTaskExpiration(), TimeUnit.MINUTES);
-        scheduledExecutorService.shutdown();
+        if (downloadTasks.containsKey(identifier)) {
+            DownloadTask task = downloadTasks.get(identifier);
+            ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+            ScheduledFuture<?> releaseSchedule = scheduledExecutorService.schedule(new AutoReleaseDownloadTask(this, task, null), config.getTaskExpiration(), TimeUnit.MINUTES);
+            scheduledExecutorService.shutdown();
+            taskReleaseScheduledMap.put(identifier, releaseSchedule);
+        }
 
-        taskReleaseScheduledMap.put(identifier, releaseSchedule);
     }
 
     @Lock(LockType.WRITE)

@@ -52,8 +52,10 @@ public class DownloaderRestClient {
     }
 
     public <T> T postDownload_XML(Object requestEntity, Class<T> responseType) throws ClientErrorException {
+        System.out.println(webTarget.path("download").getUri());
         return webTarget.path("download").request(javax.ws.rs.core.MediaType.APPLICATION_XML).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_XML), responseType);
     }
+    
 
     public <T> T postDownload_JSON(Object requestEntity, Class<T> responseType) throws ClientErrorException {
         return webTarget.path("download").request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(requestEntity, javax.ws.rs.core.MediaType.APPLICATION_JSON), responseType);

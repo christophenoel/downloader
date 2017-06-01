@@ -28,8 +28,10 @@ public class ApplicationConfig extends Application {
      * out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(esa.mep.downloader.service.Configuration.class);
         resources.add(esa.mep.downloader.service.Download.class);
         resources.add(esa.mep.downloader.service.DownloaderExceptionMapper.class);
+        resources.add(esa.mep.downloader.service.ExpandUrl.class);
     }
 
 }
