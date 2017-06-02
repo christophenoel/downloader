@@ -1,12 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="Downloader" resourceRoot="" soapui-version="5.2.1" id="6a56efdc-bdee-40e5-b1ef-50f63614c757" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="application" type="rest" basePath="/downloader/webapi/" definitionUrl="http://h-edc-dev.spb.spacebel.be:8888/downloader/webapi/application.wadl" id="7a2c0677-31be-420d-b130-e2001ec3306d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.rest.actions.service.Wadl2JavaAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="Downloader" resourceRoot="" soapui-version="5.3.0" id="6a56efdc-bdee-40e5-b1ef-50f63614c757" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="application" type="rest" basePath="/downloader/webapi/" definitionUrl="http://h-edc-dev.spb.spacebel.be:8888/downloader/webapi/application.wadl" id="7a2c0677-31be-420d-b130-e2001ec3306d" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.rest.actions.service.Wadl2JavaAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="Java Args" value=""/>
   <con:entry key="Output Directory" value=""/>
   <con:entry key="Package" value=""/>
   <con:entry key="JAXB Customization File(s)" value=""/>
   <con:entry key="Tool Args" value=""/>
   <con:entry key="Automatic Package Names" value="false"/>
-</xml-fragment>]]></con:setting></con:settings><con:definitionCache/><con:endpoints><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="data" path="data" id="89663eb9-97a3-48ed-9ed9-ca62f56254c7"><con:settings/><con:parameters/><con:resource name="/download/{identifier}" path="/download/{identifier}" id="7419ad60-2909-48ab-ab84-cdf63c42f174"><con:settings/><con:parameters><con:parameter><con:name>identifier</con:name><con:value xsi:nil="true"/><con:style>TEMPLATE</con:style><con:default xsi:nil="true"/></con:parameter></con:parameters><con:method name="DELETE - deleteDownload" method="DELETE" id="d62bb818-246d-4903-a902-e91b5d050139"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json" id="7fe18c25-d1fa-49d8-bbcd-bf30172c5cbe"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET - getStatus" method="GET" id="68df30e7-1a1e-454e-bc5b-e732a222e38d"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json" id="c294f979-deeb-46a5-b965-e5ce2fa93d54"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/data/download/015d8d3b-e63e-4706-8e25-77dd0e5ed365</con:originalUri><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="identifier" value="015d8d3b-e63e-4706-8e25-77dd0e5ed365" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:resource name="/download" path="/download" id="d4a4c51f-b6ff-4138-a201-05587cf1e890"><con:settings/><con:parameters/><con:method name="POST - postDownload" method="POST" id="cf320bae-74a6-4891-82e2-0149e0ec1329"><con:settings/><con:parameters/><con:representation type="REQUEST" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="REQUEST" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadResponse</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadResponse</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/xml" postQueryString="false" id="862f3b8a-c539-4619-8d27-0997e7e5b102"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request><![CDATA[<dow:DownloadRequest xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">
+</xml-fragment>]]></con:setting></con:settings><con:definitionCache type="TEXT" rootPart="http://h-edc-dev.spb.spacebel.be:8888/downloader/webapi/application.wadl"><con:part><con:url>http://h-edc-dev.spb.spacebel.be:8888/downloader/webapi/application.wadl</con:url><con:content><![CDATA[<application xmlns="http://wadl.dev.java.net/2009/02">
+    <doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 2.21 2015-08-14 21:41:51"/>
+    <doc xmlns:jersey="http://jersey.java.net/" jersey:hint="This is simplified WADL with user and core resources only. To get full WADL with extended resources use the query parameter detail. Link: http://localhost:8080/downloader/webapi/application.wadl?detail=true"/>
+    <grammars>
+        <include href="application.wadl/xsd0.xsd">
+            <doc title="Generated" xml:lang="en"/>
+        </include>
+    </grammars>
+    <resources base="http://localhost:8080/downloader/webapi/">
+        <resource path="data">
+            <resource path="/download/{identifier}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="identifier" style="template" type="xs:string"/>
+                <method id="getStatus" name="GET">
+                    <response>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadStatus" mediaType="application/xml"/>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadStatus" mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="deleteDownload" name="DELETE">
+                    <response>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadStatus" mediaType="application/xml"/>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadStatus" mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="/download">
+                <method id="postDownload" name="POST">
+                    <request>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadRequest" mediaType="application/xml"/>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadRequest" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadResponse" mediaType="application/xml"/>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:DownloadResponse" mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="configuration">
+            <method id="postGetConfiguration" name="POST">
+                <request>
+                    <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:GetConfigurationRequest" mediaType="application/xml"/>
+                    <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:GetConfigurationRequest" mediaType="application/json"/>
+                </request>
+                <response>
+                    <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:GetConfigurationResponse" mediaType="application/xml"/>
+                    <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:GetConfigurationResponse" mediaType="application/json"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="urllist">
+            <resource path="/expandurl">
+                <method id="postExpandUrl" name="POST">
+                    <request>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:ExpandURLRequest" mediaType="application/xml"/>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:ExpandURLRequest" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:ExpandURLResponse" mediaType="application/xml"/>
+                        <representation xmlns:ns2="http://proba-v-mep.esa.int/schemas/downloader" element="ns2:ExpandURLResponse" mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+    </resources>
+</application>]]></con:content><con:type>http://wadl.dev.java.net/2009/02</con:type></con:part><con:part><con:url>http://h-edc-dev.spb.spacebel.be:8888/downloader/webapi/application.wadl/xsd0.xsd</con:url><con:content><![CDATA[<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://proba-v-mep.esa.int/schemas/downloader" xmlns:tns="http://proba-v-mep.esa.int/schemas/downloader" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="DownloadRequest" type="tns:AsyncDownloadRequestType"/>
+
+  <xs:element name="DownloadResponse" type="tns:AsyncDownloadResponseType"/>
+
+  <xs:element name="DownloadStatus" type="tns:AsyncDownloadStatusType"/>
+
+  <xs:element name="ExpandURLRequest" type="tns:ExpandURLRequestType"/>
+
+  <xs:element name="ExpandURLResponse" type="tns:ExpandURLResponseType"/>
+
+  <xs:element name="GetConfigurationRequest" type="tns:GetConfigurationRequestType"/>
+
+  <xs:element name="GetConfigurationResponse" type="tns:GetConfigurationResponseType"/>
+
+  <xs:complexType name="GetConfigurationRequestType">
+    <xs:sequence>
+      <xs:element name="servers" type="tns:ServerSelectionType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServerSelectionType">
+    <xs:sequence>
+      <xs:element name="protocol" type="xs:string" minOccurs="0"/>
+      <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExpandURLResponseType">
+    <xs:sequence>
+      <xs:element name="url" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GetConfigurationResponseType">
+    <xs:sequence>
+      <xs:element name="servers" type="tns:ServersConfigurationType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServersConfigurationType">
+    <xs:sequence>
+      <xs:element name="server" type="tns:ServerConfigurationType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServerConfigurationType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="protocol" type="xs:string"/>
+      <xs:element name="user" type="xs:string" minOccurs="0"/>
+      <xs:element name="maxConnections" type="xs:int" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AsyncDownloadStatusType">
+    <xs:sequence>
+      <xs:element name="identifier" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="productStatus" type="tns:productStatusType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="productStatusType">
+    <xs:sequence>
+      <xs:element name="productURL" type="xs:string"/>
+      <xs:element name="downloadDirectory" type="xs:string"/>
+      <xs:element name="completedDownloadPath" type="xs:string"/>
+      <xs:element name="totalFileSize" type="xs:long"/>
+      <xs:element name="productName" type="xs:string"/>
+      <xs:element name="productProgress" type="tns:progressType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="progressType">
+    <xs:sequence>
+      <xs:element name="downloadedSize" type="xs:long"/>
+      <xs:element name="message" type="xs:string"/>
+      <xs:element name="progressPercentage" type="xs:int"/>
+      <xs:element name="status" type="xs:string"/>
+      <xs:element name="statusCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AsyncDownloadResponseType">
+    <xs:sequence>
+      <xs:element name="identifier" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AsyncDownloadRequestType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="product" type="tns:productType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="productType">
+    <xs:sequence>
+      <xs:element name="URL" type="xs:string"/>
+      <xs:element name="downloadDirectory" type="xs:string"/>
+      <xs:element name="size" type="xs:long" minOccurs="0"/>
+      <xs:element name="verification" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="hash" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence/>
+                <xs:attribute name="type" type="xs:string"/>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExpandURLRequestType">
+    <xs:sequence>
+      <xs:element name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="statusType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NOT_STARTED"/>
+      <xs:enumeration value="IDLE"/>
+      <xs:enumeration value="RUNNING"/>
+      <xs:enumeration value="CANCELLED"/>
+      <xs:enumeration value="IN_ERROR"/>
+      <xs:enumeration value="COMPLETED"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="data" path="data" id="89663eb9-97a3-48ed-9ed9-ca62f56254c7"><con:settings/><con:parameters/><con:resource name="/download/{identifier}" path="/download/{identifier}" id="7419ad60-2909-48ab-ab84-cdf63c42f174"><con:settings/><con:parameters><con:parameter><con:name>identifier</con:name><con:value xsi:nil="true"/><con:style>TEMPLATE</con:style><con:default xsi:nil="true"/></con:parameter></con:parameters><con:method name="DELETE - deleteDownload" method="DELETE" id="d62bb818-246d-4903-a902-e91b5d050139"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json" id="7fe18c25-d1fa-49d8-bbcd-bf30172c5cbe" postQueryString="false"><con:settings/><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET - getStatus" method="GET" id="68df30e7-1a1e-454e-bc5b-e732a222e38d"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json" id="c294f979-deeb-46a5-b965-e5ce2fa93d54"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request/><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/data/download/015d8d3b-e63e-4706-8e25-77dd0e5ed365</con:originalUri><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="identifier" value="015d8d3b-e63e-4706-8e25-77dd0e5ed365" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:resource name="/download" path="/download" id="d4a4c51f-b6ff-4138-a201-05587cf1e890"><con:settings/><con:parameters/><con:method name="POST - postDownload" method="POST" id="cf320bae-74a6-4891-82e2-0149e0ec1329"><con:settings/><con:parameters/><con:representation type="REQUEST" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="REQUEST" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadResponse</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadResponse</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/xml" postQueryString="false" id="862f3b8a-c539-4619-8d27-0997e7e5b102"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request><![CDATA[<dow:DownloadRequest xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">
    <dow:name>Test download</dow:name>
    
    <dow:product>
@@ -141,4 +340,4 @@ count(./ns:DownloadStatus/ns:productStatus)</path><content>12</content><allowWil
 &lt;/ExpandURLRequest>
 </con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/urllist/expandurl</con:originalUri><con:assertion type="Schema Compliance" name="Schema Compliance" id="26129420-97dd-47bf-bdaa-f098dea3eea5"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match" id="52d352f6-d589-42c3-bc56-8c2518a786bd"><con:configuration><path>declare namespace ns='http://proba-v-mep.esa.int/schemas/downloader';
 
-(count(./ns:ExpandURLResponse/ns:url)=4)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+(count(./ns:ExpandURLResponse/ns:url)=4)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
