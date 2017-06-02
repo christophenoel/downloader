@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="Downloader" resourceRoot="" soapui-version="5.0.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="application" type="rest" basePath="/downloader/webapi/" definitionUrl="http://h-edc-dev.spb.spacebel.be:8888/downloader/webapi/application.wadl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint></con:endpoints><con:resource name="data" path="data"><con:settings/><con:parameters/><con:resource name="/download/{identifier}" path="/download/{identifier}"><con:settings/><con:parameters><con:parameter><con:name>identifier</con:name><con:value xsi:nil="true"/><con:style>TEMPLATE</con:style><con:default xsi:nil="true"/></con:parameter></con:parameters><con:method name="DELETE - deleteDownload" method="DELETE"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings/><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request/><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="GET - getStatus" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadStatus</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request/><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/data/download/015d8d3b-e63e-4706-8e25-77dd0e5ed365</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="identifier" value="015d8d3b-e63e-4706-8e25-77dd0e5ed365" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:request></con:method></con:resource><con:resource name="/download" path="/download"><con:settings/><con:parameters/><con:method name="POST - postDownload" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="REQUEST" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadResponse</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:DownloadResponse</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request><![CDATA[<dow:DownloadRequest xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">
+   <dow:name>Test download</dow:name>
+   
+   <dow:product>
+   
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image11.png</dow:URL>
+      <dow:downloadDirectory>mng1</dow:downloadDirectory>
+      
+   </dow:product>
+   <dow:product>   
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image12.png</dow:URL>
+      <dow:downloadDirectory>mng2</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image1.png</dow:URL>
+      <dow:downloadDirectory>mng3</dow:downloadDirectory>      
+   </dow:product>
+	<dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image2.png</dow:URL>
+      <dow:downloadDirectory>mng4</dow:downloadDirectory>      
+   </dow:product>	
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image3.png</dow:URL>
+      <dow:downloadDirectory>mng5</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image4.png</dow:URL>
+      <dow:downloadDirectory>mng6</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image5.png</dow:URL>
+      <dow:downloadDirectory>mng7</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image6.png</dow:URL>
+      <dow:downloadDirectory>mng8</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image7.png</dow:URL>
+      <dow:downloadDirectory>mng9</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image8.png</dow:URL>
+      <dow:downloadDirectory>mng10</dow:downloadDirectory>
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image9.png</dow:URL>
+      <dow:downloadDirectory>mng11</dow:downloadDirectory>
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image10.png</dow:URL>
+      <dow:downloadDirectory>mng12</dow:downloadDirectory>
+   </dow:product>
+</dow:DownloadRequest>]]></con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/data/download</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:resource><con:resource name="configuration" path="configuration"><con:settings/><con:parameters/><con:method name="POST - postGetConfiguration" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:GetConfigurationRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="REQUEST" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:GetConfigurationRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:GetConfigurationResponse</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:GetConfigurationResponse</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request><![CDATA[<GetConfigurationRequest xmlns="http://proba-v-mep.esa.int/schemas/downloader">
+	<servers>
+		<protocol>FTP</protocol>
+	</servers>
+</GetConfigurationRequest>]]></con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/configuration</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource><con:resource name="urllist" path="urllist"><con:settings/><con:parameters/><con:resource name="/expandurl" path="/expandurl"><con:settings/><con:parameters/><con:method name="POST - postExpandUrl" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:ExpandURLRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="REQUEST" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:ExpandURLRequest</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/xml</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:ExpandURLResponse</con:element><con:description xsi:nil="true"/></con:representation><con:representation type="RESPONSE" id=""><con:mediaType>application/json</con:mediaType><con:params/><con:element xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">dow:ExpandURLResponse</con:element><con:description xsi:nil="true"/></con:representation><con:request name="Request 1" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request>&lt;ExpandURLRequest xmlns="http://proba-v-mep.esa.int/schemas/downloader">
+	&lt;url>ftp://ftp.spacebel.be/proba-V-MEP-data/multiple&lt;/url>
+&lt;/ExpandURLRequest>
+</con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/urllist/expandurl</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:resource></con:interface><con:testSuite name="Functions Test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Download" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="HTTP Download"><con:settings/><con:config service="application" resourcePath="/downloader/webapi/data/download" methodName="POST - postDownload" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Download sentinel product" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request><![CDATA[<dow:DownloadRequest xmlns:dow="http://proba-v-mep.esa.int/schemas/downloader">
+   <dow:name>Test download</dow:name>
+   
+   <dow:product>
+   
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image11.png</dow:URL>
+      <dow:downloadDirectory>mng1</dow:downloadDirectory>
+      
+   </dow:product>
+   <dow:product>   
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image12.png</dow:URL>
+      <dow:downloadDirectory>mng2</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image1.png</dow:URL>
+      <dow:downloadDirectory>mng3</dow:downloadDirectory>      
+   </dow:product>
+	<dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image2.png</dow:URL>
+      <dow:downloadDirectory>mng4</dow:downloadDirectory>      
+   </dow:product>	
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image3.png</dow:URL>
+      <dow:downloadDirectory>mng5</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image4.png</dow:URL>
+      <dow:downloadDirectory>mng6</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image5.png</dow:URL>
+      <dow:downloadDirectory>mng7</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image6.png</dow:URL>
+      <dow:downloadDirectory>mng8</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image7.png</dow:URL>
+      <dow:downloadDirectory>mng9</dow:downloadDirectory>      
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image8.png</dow:URL>
+      <dow:downloadDirectory>mng10</dow:downloadDirectory>
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image9.png</dow:URL>
+      <dow:downloadDirectory>mng11</dow:downloadDirectory>
+   </dow:product>
+   <dow:product>
+      <dow:URL>http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image10.png</dow:URL>
+      <dow:downloadDirectory>mng12</dow:downloadDirectory>
+   </dow:product>
+</dow:DownloadRequest>]]></con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/data/download</con:originalUri><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="delay" name="Delay 1 minute"><con:settings/><con:config><delay>60000</delay></con:config></con:testStep><con:testStep type="transfer" name="Transfer download Id to the next step"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>download Id</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>HTTP Download</con:sourceStep><con:sourcePath>declare namespace ns='http://proba-v-mep.esa.int/schemas/downloader';
+//ns:DownloadResponse/ns:identifier
+</con:sourcePath><con:targetType>identifier</con:targetType><con:targetStep>Check HTTP download status</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="restrequest" name="Check HTTP download status"><con:settings/><con:config service="application" resourcePath="/downloader/webapi/data/download/{identifier}" methodName="GET - getStatus" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Check HTTP download status" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request/><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/data/download/015d8d3b-e63e-4706-8e25-77dd0e5ed365</con:originalUri><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns='http://proba-v-mep.esa.int/schemas/downloader';
+
+(count(./ns:DownloadStatus/ns:productStatus)=12) and (./ns:DownloadStatus/ns:productStatus[ns:productURL='http://h-edc-dev.spb.spacebel.be:8080/downloadFiles/image11.png']/ns:completedDownloadPath='/data/downloaded-data/mng1/image11.png')</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="identifier" value="015d8d3b-e63e-4706-8e25-77dd0e5ed365" xmlns="http://eviware.com/soapui/config"/></con:parameters></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Configuration" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="Get FTP server configuration"><con:settings/><con:config service="application" resourcePath="/downloader/webapi/configuration" methodName="POST - postGetConfiguration" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get configuration" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request><![CDATA[<GetConfigurationRequest xmlns="http://proba-v-mep.esa.int/schemas/downloader">
+	<servers>
+		<protocol>FTP</protocol>
+	</servers>
+</GetConfigurationRequest>]]></con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/configuration</con:originalUri><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns='http://proba-v-mep.esa.int/schemas/downloader';
+
+(count(./ns:GetConfigurationResponse/ns:servers/ns:server)=4) and (./ns:GetConfigurationResponse/ns:servers/ns:server[ns:name='ftp://cvbftp.vgt.vito.be']/ns:user='cvb_usr')</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="Get HTTP server configuration"><con:settings/><con:config service="application" resourcePath="/downloader/webapi/configuration" methodName="POST - postGetConfiguration" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get HTTP server configuration" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request><![CDATA[<GetConfigurationRequest xmlns="http://proba-v-mep.esa.int/schemas/downloader">
+	<servers>
+		<protocol>HTTP</protocol>
+	</servers>
+</GetConfigurationRequest>]]></con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/configuration</con:originalUri><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns='http://proba-v-mep.esa.int/schemas/downloader';
+
+(count(./ns:GetConfigurationResponse/ns:servers/ns:server)=4) and (./ns:GetConfigurationResponse/ns:servers/ns:server[ns:name='scihub.copernicus.eu']/ns:user='tth')</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Expand Url" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="Get all sub files of a FTP directory"><con:settings/><con:config service="application" resourcePath="/downloader/webapi/urllist/expandurl" methodName="POST - postExpandUrl" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="Get all sub files of a FTP directory" mediaType="application/xml" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://h-edc-dev.spb.spacebel.be:8888</con:endpoint><con:request>&lt;ExpandURLRequest xmlns="http://proba-v-mep.esa.int/schemas/downloader">
+	&lt;url>ftp://ftp.spacebel.be/proba-V-MEP-data/multiple&lt;/url>
+&lt;/ExpandURLRequest>
+</con:request><con:originalUri>http://h-edc-dev.spb.spacebel.be/downloader/webapi/urllist/expandurl</con:originalUri><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match"><con:configuration><path>declare namespace ns='http://proba-v-mep.esa.int/schemas/downloader';
+
+(count(./ns:ExpandURLResponse/ns:url)=4)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
