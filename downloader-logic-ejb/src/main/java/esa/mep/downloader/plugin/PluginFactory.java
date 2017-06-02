@@ -17,6 +17,7 @@ package esa.mep.downloader.plugin;
 
 import be.spacebel.ese.downloadmanager.plugin.FTPDownloadPlugin;
 import be.spacebel.ese.downloadmanager.plugin.http.HTTPDownloadPlugin;
+import esa.mep.datamanager.plugin.usgs.USGSDownloadPlugin;
 import esa.mep.downloader.config.DownloaderConfig;
 import esa.mep.downloader.exception.DMPluginException;
 import java.nio.file.Path;
@@ -167,6 +168,7 @@ public class PluginFactory {
         final List<Class<? extends IDownloadPlugin>> pluginsList = new ArrayList<Class<? extends IDownloadPlugin>>();
         pluginsList.add(HTTPDownloadPlugin.class);
         pluginsList.add(FTPDownloadPlugin.class);
+        pluginsList.add(USGSDownloadPlugin.class);
         return pluginsList;
     }
 

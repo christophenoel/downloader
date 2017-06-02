@@ -30,6 +30,11 @@
             <artifactId>downloader-ftp-plugin</artifactId>
             <version>1.0.1</version>
         </dependency>
+         <dependency>
+            <groupId>esa.mep.downloader</groupId>
+            <artifactId>downloader-usgs-plugin</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
