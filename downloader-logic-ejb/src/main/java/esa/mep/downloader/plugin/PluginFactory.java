@@ -17,7 +17,7 @@ package esa.mep.downloader.plugin;
 
 import be.spacebel.ese.downloadmanager.plugin.FTPDownloadPlugin;
 import be.spacebel.ese.downloadmanager.plugin.http.HTTPDownloadPlugin;
-import esa.mep.datamanager.plugin.usgs.USGSDownloadPlugin;
+import esa.mep.downloader.plugin.usgs.USGSDownloadPlugin;
 import esa.mep.downloader.config.DownloaderConfig;
 import esa.mep.downloader.exception.DMPluginException;
 import java.nio.file.Path;
@@ -101,6 +101,7 @@ public class PluginFactory {
         for (IDownloadPluginInfo downloadPluginInfo : downloadPluginInfoList) {
             LOGGER.debug("Plugin name : " + downloadPluginInfo.getName());
             String[] matchingPatterns = downloadPluginInfo.getMatchingPatterns();
+            
             for (String matchingPattern : matchingPatterns) {
                 LOGGER.debug("Matching pattern : " + matchingPattern);
                 Pattern p = Pattern.compile(matchingPattern);
@@ -166,9 +167,11 @@ public class PluginFactory {
         LOGGER.debug("Get plugin classes.");
         // Build list of parsers.
         final List<Class<? extends IDownloadPlugin>> pluginsList = new ArrayList<Class<? extends IDownloadPlugin>>();
+        // USGS plugin should be added before HTTP (else HTTP plugin matches URLs before USGS)
+        pluginsList.add(USGSDownloadPlugin.class);
         pluginsList.add(HTTPDownloadPlugin.class);
         pluginsList.add(FTPDownloadPlugin.class);
-        pluginsList.add(USGSDownloadPlugin.class);
+        
         return pluginsList;
     }
 

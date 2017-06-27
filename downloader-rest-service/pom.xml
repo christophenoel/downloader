@@ -16,15 +16,29 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+       </properties>
     
     <dependencies>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+<dependency>
+    <groupId>commons-codec</groupId>
+    <artifactId>commons-codec</artifactId>
+    <version>1.10</version>
+</dependency>
+
         <dependency>
             <groupId>esa.mep.downloader</groupId>
             <artifactId>downloader-bindings</artifactId>
@@ -36,7 +50,13 @@
             <artifactId>downloader-logic-ejb</artifactId>
             <version>1.0.0</version>
             <type>ejb</type>
-        </dependency>
+             <exclusions>
+                 <exclusion>
+                     <groupId>xml-apis</groupId>
+                     <artifactId>xml-apis</artifactId>
+                 </exclusion>
+             </exclusions>
+         </dependency>
     </dependencies>
 
     <build>

@@ -62,6 +62,7 @@ public class Download {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public DownloadStatus getStatus(@PathParam("identifier") String identifier) throws DownloaderException {
+         LOGGER.info("Get Status "+identifier);
         return downloader.getStatus(identifier);
     }
 
@@ -79,6 +80,7 @@ public class Download {
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public DownloadStatus deleteDownload(@PathParam("identifier") String identifier) throws DownloaderException {
+        LOGGER.info("Delete Download "+identifier);
         return downloader.cancel(identifier);
     }    
     
@@ -86,6 +88,7 @@ public class Download {
     @Path("/content")
      @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public String getContent(String filePath) throws DownloaderException {
+        LOGGER.info("Get Content "+filePath);
       return getTextFileContent(filePath);
     }
     
