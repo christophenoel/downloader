@@ -40,26 +40,34 @@ public class DownloaderConfig {
     private static final String BASE_DOWNLOAD_DIR_ABSOLUTE = "base.download.directory.absolute";
     private static final String TASK_DURATION = "download.task.maximum.duration.hours";
     private static final String TASK_EXPIRATION = "download.task.expiration_miniutes";
+    private static final String PROXY_HTTP_HOST = "http.proxy.host";
+    private static final String PROXY_HTTP_PORT = "http.proxy.port";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DownloaderConfig.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            DownloaderConfig.class);
 
     private final Properties prop = new Properties();
     private String downloaderRootDirectory;
     private String baseDownloadDir;
     private int taskDuration = 72;
     private int taskExpiration = 5;
+    private String proxyHost;
+    private int proxyPort;
 
     @PostConstruct
     void init() {
         LOGGER.debug("Initialize DownloaderConfig class");
-        File classPath = new File(DownloaderConfig.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        File classPath = new File(
+                DownloaderConfig.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         LOGGER.debug("DownloaderConfig class location = " + classPath);
 
         this.downloaderRootDirectory = classPath.getParentFile().getParentFile().getParentFile().getAbsolutePath();
         LOGGER.debug("Downloader root directory = " + downloaderRootDirectory);
 
         try {
-            this.prop.load(new FileInputStream(Paths.get(downloaderRootDirectory, CONF_DIR, "resources.properties").toFile()));
+            this.prop.load(new FileInputStream(
+                    Paths.get(downloaderRootDirectory, CONF_DIR,
+                            "resources.properties").toFile()));
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
@@ -71,27 +79,35 @@ public class DownloaderConfig {
             try {
                 taskDuration = Integer.parseInt(strDuration);
             } catch (NumberFormatException e) {
-                LOGGER.error(String.format("The value of %s should be a positive number.", TASK_DURATION));
+                LOGGER.error(String.format(
+                        "The value of %s should be a positive number.",
+                        TASK_DURATION));
             }
         }
-        LOGGER.debug("The configrured duration of download task is " + taskDuration + " hours");
+        LOGGER.debug(
+                "The configrured duration of download task is " + taskDuration + " hours");
 
         String strExpiration = getProp(TASK_EXPIRATION);
         if (StringUtils.isNotEmpty(strExpiration)) {
             try {
                 this.taskExpiration = Integer.parseInt(strExpiration);
             } catch (NumberFormatException e) {
-                LOGGER.error(String.format("The value of %s should be a positive number.", TASK_EXPIRATION));
+                LOGGER.error(String.format(
+                        "The value of %s should be a positive number.",
+                        TASK_EXPIRATION));
             }
         }
-        LOGGER.debug("The configrured expiration of download task is " + this.taskExpiration + " minutes");
+        this.proxyHost = getProp(PROXY_HTTP_HOST);
+        this.proxyPort = Integer.parseInt(getProp(PROXY_HTTP_PORT));
+        LOGGER.debug(
+                "The configrured expiration of download task is " + this.taskExpiration + " minutes");
     }
 
     public Path getPluginConfigurationDirectory() {
         Path path = Paths.get(downloaderRootDirectory, CONF_DIR, PLUGIN_DIR);
         LOGGER.debug("Plugins configuration dir = " + path.toString());
         return path;
-    }    
+    }
 
     public String getBaseDownloadDirectory() {
         return baseDownloadDir;
@@ -110,9 +126,24 @@ public class DownloaderConfig {
         if (StringUtils.isNotEmpty(value)) {
             return StringUtils.trimToEmpty(value);
         } else {
-            LOGGER.error(String.format("The property %s does not exist or is empty.", key));
+            LOGGER.error(String.format(
+                    "The property %s does not exist or is empty.", key));
             return null;
         }
+    }
+
+    /**
+     * @return the proxyHost
+     */
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    /**
+     * @return the proxyPort
+     */
+    public int getProxyPort() {
+        return proxyPort;
     }
 
 }
