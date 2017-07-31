@@ -98,7 +98,10 @@ public class DownloaderConfig {
             }
         }
         this.proxyHost = getProp(PROXY_HTTP_HOST);
+       String stringPort = getProp(PROXY_HTTP_PORT);
+        if(stringPort !=null) {
         this.proxyPort = Integer.parseInt(getProp(PROXY_HTTP_PORT));
+        }
         LOGGER.debug(
                 "The configrured expiration of download task is " + this.taskExpiration + " minutes");
     }
@@ -126,7 +129,7 @@ public class DownloaderConfig {
         if (StringUtils.isNotEmpty(value)) {
             return StringUtils.trimToEmpty(value);
         } else {
-            LOGGER.error(String.format(
+            LOGGER.warn(String.format(
                     "The property %s does not exist or is empty.", key));
             return null;
         }
