@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Gerhard Triebnig (EOX IT Services GmbH) bearbeitet -->
-<!-- edited with XMLSpy v2016 rel. 2 sp1 (x64) (http://www.altova.com) by Joel Lim (spacebel SA) -->
+<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Joel Lim (Spacebel SA) -->
 <xs:schema xmlns="http://proba-v-mep.esa.int/schemas/downloader" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://proba-v-mep.esa.int/schemas/downloader" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:simpleType name="statusType">
 		<xs:restriction base="xs:string">
@@ -37,19 +37,21 @@
 					<xs:sequence>
 						<xs:element name="hash" maxOccurs="unbounded">
 							<xs:complexType>
-								<xs:attribute name="type">
-									<xs:annotation>
-										<xs:documentation>Could be MD5, SHA1, CRC32, etc.</xs:documentation>
-									</xs:annotation>
-									<xs:simpleType>
-										<xs:restriction base="xs:string">
-											<xs:enumeration value="MD2"/>
-											<xs:enumeration value="MD5"/>
-											<xs:enumeration value="SHA-1"/>
-											<xs:enumeration value="SHA-256"/>
-											<xs:enumeration value="SHA-384"/>
-											<xs:enumeration value="SHA-512"/>
-											<!--   
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="type">
+											<xs:annotation>
+												<xs:documentation>Could be MD5, SHA1, CRC32, etc.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="MD2"/>
+													<xs:enumeration value="MD5"/>
+													<xs:enumeration value="SHA-1"/>
+													<xs:enumeration value="SHA-256"/>
+													<xs:enumeration value="SHA-384"/>
+													<xs:enumeration value="SHA-512"/>
+													<!--   
 <xs:enumeration value="md4"/>
 <xs:enumeration value="md5"/>
 <xs:enumeration value="sha1"/>
@@ -60,9 +62,11 @@
 <xs:enumeration value="tiger"/>
 <xs:enumeration value="crc32"/>
                                             -->
-										</xs:restriction>
-									</xs:simpleType>
-								</xs:attribute>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
