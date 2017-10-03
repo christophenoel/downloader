@@ -57,7 +57,18 @@ public class ProductDownloadListener implements IProductDownloadListener {
     @Override
     public void progress(Integer progressPercentage, Long downloadedSize, EDownloadStatus status, String message) {
         ProgressType progressType = DownloaderBindings.getProgressType(progressPercentage, downloadedSize, status, message);
+        
+        progressType.setStatusCode("200");
+        if (status.equals(EDownloadStatus.IN_ERROR)) {
+            if (this.product.getProduct().getURL().startsWith("ftp://") || this.product.getProduct().getURL().startsWith("ftps://")) {
+                progressType.setStatusCode("400");
+            } else {
+                progressType.setStatusCode("500");
+            }
+        }
+
         this.downloadTask.updateDownloadProgress(this.product, progressType);
+        
         // in case completed
         if (status.equals(EDownloadStatus.COMPLETED)) {
             File downloadedFile = this.getProduct().getProcess().getDownloadedFiles()[0];

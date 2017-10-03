@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<account>
+		<ftpBase>ftp://ftp.vito.be/ESE</ftpBase>
+		<ftpUser>zzftp10</ftpUser>
+		<ftpPassword>Ruimte73</ftpPassword>
+		<ftpActiveMode>false</ftpActiveMode>		
+		<ftpMaxConnections>1</ftpMaxConnections>				
+	</account>	
+	<account>
+		<ftpBase>ftp://ftp.vito-eodata.be</ftpBase>
+		<ftpUser>podtestservice</ftpUser>
+		<ftpPassword>podtestservice</ftpPassword>		
+		<ftpMaxConnections>2</ftpMaxConnections>
+	</account>
+	<account>
+		<!--
+		<ftpBase>ftp://193.191.168.5</ftpBase>
+		-->
+		<ftpBase>ftp://cvbftp.vgt.vito.be</ftpBase>
+		<ftpUser>cvb_usr</ftpUser>
+		<ftpPassword>Tran16_on</ftpPassword>		
+		<ftpMaxConnections>2</ftpMaxConnections>
+	</account>	
+	<account>
+		<ftpBase>ftp://ftp.spacebel.be</ftpBase>
+		<ftpUser>sgspb</ftpUser>
+		<ftpPassword>DG5@spb</ftpPassword>
+		<ftpMaxConnections>1</ftpMaxConnections>
+	</account>	
+</configuration>

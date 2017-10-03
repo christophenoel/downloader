@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Mit XMLSpy v2011 rel. 3 sp1 (x64) (http://www.altova.com) von Gerhard Triebnig (EOX IT Services GmbH) bearbeitet -->
-<!-- edited with XMLSpy v2006 sp2 U (http://www.altova.com) by Joel Lim (Spacebel SA) -->
+<!-- edited with XMLSpy v2016 rel. 2 sp1 (x64) (http://www.altova.com) by Joel Lim (spacebel SA) -->
 <xs:schema xmlns="http://proba-v-mep.esa.int/schemas/downloader" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://proba-v-mep.esa.int/schemas/downloader" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:simpleType name="statusType">
 		<xs:restriction base="xs:string">
@@ -269,6 +269,20 @@
 			<xs:element name="servers" type="ServersConfigurationType"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="RequestType">
+		<xs:sequence>
+			<xs:element name="filePath" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>File path</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hashValue" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The MD5 hash to verify the integrity of the given file</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:element name="DownloadRequest" type="AsyncDownloadRequestType"/>
 	<xs:element name="DownloadResponse" type="AsyncDownloadResponseType"/>
 	<xs:element name="DownloadStatus" type="AsyncDownloadStatusType"/>
@@ -280,5 +294,6 @@
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="GetConfigurationResponse" type="GetConfigurationResponseType"/>
+	<xs:element name="GetContentRequest" type="RequestType"/>
 	<xs:element name="DownloaderException" type="DownloaderExceptionType"/>
 </xs:schema>

@@ -47,8 +47,10 @@ public class DownloaderBindings {
     public static ProgressType getProgressType(Integer progressPercentage, Long downloadedSize, EDownloadStatus status, String message) {
         return of.createProgressType().withProgressPercentage(progressPercentage)
                 .withDownloadedSize(downloadedSize)
-                .withStatus(getStatus(status))
-                .withMessage(message);
+                .withMessage(message)
+                .withProgressPercentage(0)
+                .withStatusCode("100")
+                .withStatus(getStatus(status));
     }
 
     
@@ -71,9 +73,10 @@ public class DownloaderBindings {
         for (ProductType p : request.getProducts()) {
             ProductStatusType ps = of.createProductStatusType()
                     .withProductURL(p.getURL())
-                    .withTotalFileSize(0)
-                    .withDownloadDirectory(null)
-                    .withProductName(null)
+                    .withDownloadDirectory("")
+                    .withCompletedDownloadPath("")
+                    .withTotalFileSize(0)                    
+                    .withProductName("")
                     .withDownloadDirectory(p.getDownloadDirectory())
                     .withProductProgress(getProgressType(0, new Long(0), EDownloadStatus.NOT_STARTED, "Job download created"));
             products.add(ps);
