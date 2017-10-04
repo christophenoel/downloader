@@ -45,6 +45,9 @@ public class DownloaderBindings {
      * @return progress type
      */
     public static ProgressType getProgressType(Integer progressPercentage, Long downloadedSize, EDownloadStatus status, String message) {
+        if (message == null) {
+            message = "";
+        }
         return of.createProgressType().withProgressPercentage(progressPercentage)
                 .withDownloadedSize(downloadedSize)
                 .withMessage(message)
@@ -53,8 +56,6 @@ public class DownloaderBindings {
                 .withStatus(getStatus(status));
     }
 
-    
-    
     /**
      * Convert a plugin status to the downloader XML status type
      *
@@ -75,7 +76,7 @@ public class DownloaderBindings {
                     .withProductURL(p.getURL())
                     .withDownloadDirectory("")
                     .withCompletedDownloadPath("")
-                    .withTotalFileSize(0)                    
+                    .withTotalFileSize(0)
                     .withProductName("")
                     .withDownloadDirectory(p.getDownloadDirectory())
                     .withProductProgress(getProgressType(0, new Long(0), EDownloadStatus.NOT_STARTED, "Job download created"));

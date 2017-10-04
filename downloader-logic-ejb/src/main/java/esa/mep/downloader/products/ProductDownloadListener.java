@@ -57,7 +57,7 @@ public class ProductDownloadListener implements IProductDownloadListener {
     @Override
     public void progress(Integer progressPercentage, Long downloadedSize, EDownloadStatus status, String message) {
         ProgressType progressType = DownloaderBindings.getProgressType(progressPercentage, downloadedSize, status, message);
-        
+
         progressType.setStatusCode("200");
         if (status.equals(EDownloadStatus.IN_ERROR)) {
             if (this.product.getProduct().getURL().startsWith("ftp://") || this.product.getProduct().getURL().startsWith("ftps://")) {
@@ -68,56 +68,85 @@ public class ProductDownloadListener implements IProductDownloadListener {
         }
 
         this.downloadTask.updateDownloadProgress(this.product, progressType);
-        
+
         // in case completed
         if (status.equals(EDownloadStatus.COMPLETED)) {
             File downloadedFile = this.getProduct().getProcess().getDownloadedFiles()[0];
             this.downloadTask.updateCompletedDownloadPath(this.product, downloadedFile);
 
-            String hashValue = null;
+            boolean ok = true;
 
-            if (this.product.getProduct().getVerification() != null && this.product.getProduct().getVerification().getHashes() != null) {
-                for (Hash hash : this.product.getProduct().getVerification().getHashes()) {
-                    if (hash.getType() != null && "MD5".equals(hash.getType())) {
-                        hashValue = hash.getValue();
-                        if (hashValue != null) {
-                            hashValue = hashValue.replaceAll("\\s+", "");
+            if (this.product.getProduct().getSize() != null && this.product.getProduct().getSize() > 0) {
+                LOGGER.debug("Check expected size of downloaded file " + downloadedFile.getAbsolutePath());
+                LOGGER.debug("Expected size: " + this.product.getProduct().getSize());
+                LOGGER.debug("Downloaded size: " + downloadedSize);
+
+                if (downloadedSize.compareTo(this.product.getProduct().getSize()) != 0) {
+                    ok = false;
+                    LOGGER.debug("The file size is NOT expected.");
+                    
+                    progressType.setStatus(StatusType.IN_ERROR);
+                    
+                    if (this.product.getProduct().getURL().toLowerCase().startsWith("http://") || this.product.getProduct().getURL().toLowerCase().startsWith("https://")) {
+                        progressType.setMessage("HTTP response code 500 : File size of the downloaded file " + downloadedSize + " isn't an expected size " + this.product.getProduct().getSize());
+                        progressType.setStatusCode("500");                        
+                    } else {
+                        if (this.product.getProduct().getURL().toLowerCase().startsWith("ftp://") || this.product.getProduct().getURL().toLowerCase().startsWith("ftps://")) {
+                            progressType.setMessage("FTP response code 400 : File size of the downloaded file " + downloadedSize + " isn't an expected size " + this.product.getProduct().getSize());
+                            progressType.setStatusCode("400");
+                        } else {
+                            progressType.setMessage("File size of the downloaded file " + downloadedSize + " isn't an expected size " + this.product.getProduct().getSize());
                         }
                     }
+                }else{
+                     LOGGER.debug("The file size is expected.");
                 }
             }
 
-            if (hashValue != null && hashValue.trim().length() > 0) {
-                LOGGER.debug("Request hash: " + hashValue);
-                try {
-                    String downloadedFileHash = getDigest(downloadedFile);
-                    if (downloadedFile != null && downloadedFileHash.trim().length() > 0) {
-                        downloadedFileHash = downloadedFileHash.replaceAll("\\s+", "");
-                        LOGGER.debug("Hash of downloaded file: " + downloadedFileHash);
-                        if (downloadedFileHash.equals(hashValue)) {
-                            LOGGER.debug("The downloaded file is OK");
-                        } else {
-                            LOGGER.debug("The downloaded file is NOK");
-                            progressType.setStatus(StatusType.IN_ERROR);
+            if (ok) {
+                String hashValue = null;
 
-                            if (this.product.getProduct().getURL().startsWith("http://") || this.product.getProduct().getURL().startsWith("https://")) {
-                                progressType.setMessage("HTTP response code 500 : The file isn't downloaded properly. Its hash value " + downloadedFileHash + " is different from hash value of the request " + hashValue);
-                                progressType.setStatusCode("500");
-                            } else {
-                                if (this.product.getProduct().getURL().startsWith("ftp://") || this.product.getProduct().getURL().startsWith("ftps://")) {
-                                    progressType.setMessage("FTP response code 400 : The file isn't downloaded properly. Its hash value " + downloadedFileHash + " is different from hash value of the request " + hashValue);
-                                    progressType.setStatusCode("400");
-                                } else {
-                                    progressType.setMessage("The file isn't downloaded properly. Its hash value " + downloadedFileHash + " is different from hash value of the request " + hashValue);
-                                }
+                if (this.product.getProduct().getVerification() != null && this.product.getProduct().getVerification().getHashes() != null) {
+                    for (Hash hash : this.product.getProduct().getVerification().getHashes()) {
+                        if (hash.getType() != null && "MD5".equals(hash.getType())) {
+                            hashValue = hash.getValue();
+                            if (hashValue != null) {
+                                hashValue = hashValue.replaceAll("\\s+", "");
                             }
-
-                            this.downloadTask.updateCompletedDownloadPath(this.product, downloadedFile);
                         }
                     }
+                }
 
-                } catch (IOException e) {
+                if (hashValue != null && hashValue.trim().length() > 0) {
+                    LOGGER.debug("Request hash: " + hashValue);
+                    try {
+                        String downloadedFileHash = getDigest(downloadedFile);
+                        if (downloadedFile != null && downloadedFileHash.trim().length() > 0) {
+                            downloadedFileHash = downloadedFileHash.replaceAll("\\s+", "");
+                            LOGGER.debug("Hash of downloaded file: " + downloadedFileHash);
+                            if (downloadedFileHash.equals(hashValue)) {
+                                LOGGER.debug("The downloaded file is OK");
+                            } else {
+                                LOGGER.debug("The downloaded file is NOK");
+                                progressType.setStatus(StatusType.IN_ERROR);
 
+                                if (this.product.getProduct().getURL().toLowerCase().startsWith("http://") || this.product.getProduct().getURL().toLowerCase().startsWith("https://")) {
+                                    progressType.setMessage("HTTP response code 500 : The file isn't downloaded properly. Its hash value " + downloadedFileHash + " is different from hash value of the request " + hashValue);
+                                    progressType.setStatusCode("500");
+                                } else {
+                                    if (this.product.getProduct().getURL().toLowerCase().startsWith("ftp://") || this.product.getProduct().getURL().toLowerCase().startsWith("ftps://")) {
+                                        progressType.setMessage("FTP response code 400 : The file isn't downloaded properly. Its hash value " + downloadedFileHash + " is different from hash value of the request " + hashValue);
+                                        progressType.setStatusCode("400");
+                                    } else {
+                                        progressType.setMessage("The file isn't downloaded properly. Its hash value " + downloadedFileHash + " is different from hash value of the request " + hashValue);
+                                    }
+                                }
+                            }
+                        }
+
+                    } catch (IOException e) {
+
+                    }
                 }
             }
 

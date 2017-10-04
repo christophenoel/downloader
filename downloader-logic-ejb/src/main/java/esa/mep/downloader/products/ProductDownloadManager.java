@@ -63,6 +63,8 @@ public class ProductDownloadManager {
     public void downloadProducts(DownloadTask task) throws URISyntaxException, DMPluginException {
 
         Map<String, ProductDownload> productDownloads = new HashMap<String, ProductDownload>();
+        task.setProductDownloads(productDownloads);
+
         for (ProductType downloadEntry : task.getRequest().getProducts()) {
             String url = downloadEntry.getURL();
             IDownloadPlugin plugin = getPlugin(downloadEntry);

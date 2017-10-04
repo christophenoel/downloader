@@ -17,9 +17,9 @@ package esa.mep.downloader.plugin;
 
 import be.spacebel.ese.downloadmanager.plugin.FTPDownloadPlugin;
 import be.spacebel.ese.downloadmanager.plugin.http.HTTPDownloadPlugin;
-import esa.mep.downloader.plugin.usgs.USGSDownloadPlugin;
 import esa.mep.downloader.config.DownloaderConfig;
 import esa.mep.downloader.exception.DMPluginException;
+import esa.mep.downloader.plugin.usgs.USGSDownloadPlugin;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -93,7 +93,10 @@ public class PluginFactory {
      */
     public IDownloadPlugin getPlugin(String url) {
         LOGGER.debug("Determine a plugin corressponding to the URL " + url);
-
+        if(url == null || url.trim().isEmpty()){
+            return null;
+        }
+        
         if (downloadPluginInfoList == null) {
             LOGGER.debug("PluginFactory wasn't initialized.");
             initPlugins();
@@ -101,7 +104,7 @@ public class PluginFactory {
         for (IDownloadPluginInfo downloadPluginInfo : downloadPluginInfoList) {
             LOGGER.debug("Plugin name : " + downloadPluginInfo.getName());
             String[] matchingPatterns = downloadPluginInfo.getMatchingPatterns();
-            
+
             for (String matchingPattern : matchingPatterns) {
                 LOGGER.debug("Matching pattern : " + matchingPattern);
                 Pattern p = Pattern.compile(matchingPattern);
@@ -135,20 +138,27 @@ public class PluginFactory {
         if (StringUtils.isNotEmpty(protocol)) {
             for (IDownloadPluginInfo downloadPluginInfo : downloadPluginInfoList) {
                 if (downloadPluginInfo.getProtocol().toString().equalsIgnoreCase(protocol)) {
-                    return downloadPluginInfo.getConfigurations(servers);
+                    try {
+                        return downloadPluginInfo.getConfigurations(servers);
+                    } catch (Exception e) {
+                        LOGGER.debug(e.getMessage());
+                    }
                 }
             }
         } else {
             List<PluginConfiguration> pluginConfigList = null;
             for (IDownloadPluginInfo downloadPluginInfo : downloadPluginInfoList) {
-                PluginConfiguration[] pluginConfigs = downloadPluginInfo.getConfigurations(servers);
-                if (pluginConfigs != null) {
-                    if (pluginConfigList == null) {
-                        pluginConfigList = new ArrayList<PluginConfiguration>();
+                try {
+                    PluginConfiguration[] pluginConfigs = downloadPluginInfo.getConfigurations(servers);
+                    if (pluginConfigs != null) {
+                        if (pluginConfigList == null) {
+                            pluginConfigList = new ArrayList<PluginConfiguration>();
+                        }
+                        pluginConfigList.addAll(Arrays.asList(pluginConfigs));
                     }
-                    pluginConfigList.addAll(Arrays.asList(pluginConfigs));
+                } catch (Exception e) {
+                    LOGGER.debug(e.getMessage());
                 }
-
             }
             if (pluginConfigList != null) {
                 return pluginConfigList.toArray(new PluginConfiguration[pluginConfigList.size()]);
@@ -171,7 +181,7 @@ public class PluginFactory {
         pluginsList.add(USGSDownloadPlugin.class);
         pluginsList.add(HTTPDownloadPlugin.class);
         pluginsList.add(FTPDownloadPlugin.class);
-        
+
         return pluginsList;
     }
 

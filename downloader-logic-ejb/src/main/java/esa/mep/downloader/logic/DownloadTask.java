@@ -41,12 +41,8 @@ public class DownloadTask {
 
     private DownloadRequest request;
     private String identifier;
-    private DownloadStatus status;    
+    private DownloadStatus status;
     private Map<String, ProductDownload> productDownloads;
-
-    public Map<String, ProductDownload> getProductDownloads() {
-        return productDownloads;
-    }
 
     public DownloadTask(DownloadRequest request, String identifier) {
         this.request = request;
@@ -111,6 +107,14 @@ public class DownloadTask {
         this.status = status;
     }
 
+    public Map<String, ProductDownload> getProductDownloads() {
+        return productDownloads;
+    }
+
+    public void setProductDownloads(Map<String, ProductDownload> productDownloads) {
+        this.productDownloads = productDownloads;
+    }
+
     @Lock(READ)
     /**
      * Given a task id and product url return the status document
@@ -135,7 +139,7 @@ public class DownloadTask {
         productStatus.setProductProgress(progressType);
     }
 
-     @Lock(WRITE)
+    @Lock(WRITE)
     public void updateDownloadProgressStatus(ProductDownload product, EDownloadStatus progressStatus) {
         ProductStatusType productStatus = this.getProductStatus(product.getProduct().getURL());
         productStatus.getProductProgress().setStatus(DownloaderBindings.getStatus(progressStatus));
@@ -160,10 +164,11 @@ public class DownloadTask {
         }
         return this.getStatus();
     }
-@Lock(WRITE)
-    public void updateCompletedDownloadPath(ProductDownload product,File downloadedFile) {
-         ProductStatusType productStatus = this.getProductStatus(product.getProduct().getURL());
-         productStatus.setCompletedDownloadPath(downloadedFile.getAbsolutePath());
+
+    @Lock(WRITE)
+    public void updateCompletedDownloadPath(ProductDownload product, File downloadedFile) {
+        ProductStatusType productStatus = this.getProductStatus(product.getProduct().getURL());
+        productStatus.setCompletedDownloadPath(downloadedFile.getAbsolutePath());
     }
 
 }

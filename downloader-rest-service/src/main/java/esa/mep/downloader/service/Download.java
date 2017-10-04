@@ -10,6 +10,7 @@ import _int.esa.proba_v_mep.schemas.downloader.DownloadResponse;
 import _int.esa.proba_v_mep.schemas.downloader.DownloadStatus;
 import _int.esa.proba_v_mep.schemas.downloader.GetContentRequest;
 import _int.esa.proba_v_mep.schemas.downloader.ObjectFactory;
+import _int.esa.proba_v_mep.schemas.downloader.ProductType;
 import esa.mep.downloader.logic.DownloaderException;
 import esa.mep.downloader.logic.DownloaderLogic;
 import java.io.File;
@@ -42,8 +43,8 @@ public class Download {
     @EJB
     private DownloaderLogic downloader;
 
-    private final static ObjectFactory of = new ObjectFactory();
-
+    private final static ObjectFactory of = new ObjectFactory();   
+            
     /**
      * Creates a new instance of Download
      */
@@ -73,6 +74,28 @@ public class Download {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public DownloadResponse postDownload(DownloadRequest request) throws DownloaderException {
         LOGGER.debug("postDownload" + request.toString());
+        if (request == null) {
+            throw new DownloaderException("Download request should not be empty.");
+        }
+
+        if (request.getName() == null) {
+            throw new DownloaderException("Name of download request should be provided.");
+        }
+
+        if (request.getProducts() == null || request.getProducts().size() < 1) {
+            throw new DownloaderException("There is no product to download.");
+        }
+
+        for (ProductType pType : request.getProducts()) {
+            if (pType.getURL() == null || pType.getURL().trim().isEmpty()) {
+                throw new DownloaderException("URL of product to download request should be provided.");
+            }
+
+            if (pType.getDownloadDirectory() == null || pType.getDownloadDirectory().trim().isEmpty()) {
+                throw new DownloaderException("Download directory should be provided.");
+            }
+        }
+
         return of.createDownloadResponse().withIdentifier(downloader.download(request));
     }
 
