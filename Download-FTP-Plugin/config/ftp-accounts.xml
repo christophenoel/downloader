@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<account>
+		<ftpBase>ftp://ftp.vito.be/ESE</ftpBase>
+		<ftpUser>zzftp10</ftpUser>
+		<ftpPassword>Ruimte73</ftpPassword>
+		<!-- ftpActiveMode is optional. Its value should be either "true" or "false" if it exists.-->
+		<ftpActiveMode>true</ftpActiveMode>
+		<!--ftpMaxConnections is optional. Its value should be numeric. An infinite parallel connections will be applied if it is not specified. -->
+		<ftpMaxConnections>1</ftpMaxConnections>
+		<!-- number of retrials -->
+		<ftpRetrial numOfAttempt="3" delay="10" factor="1"/>
+		<!-- The timeout in minutes to use when reading from the data connection. The default value is 10 minutes -->
+		<dataReadingTimeout>10</dataReadingTimeout>		
+	</account>
+	<account>
+		<ftpBase>ftp://ftp.vito-eodata.be</ftpBase>
+		<ftpUser>ddaems</ftpUser>
+		<ftpPassword>ddaems</ftpPassword>
+	</account>	
+</configuration>
