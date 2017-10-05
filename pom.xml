@@ -17,6 +17,9 @@
     <module>downloader-logic-ejb</module>
     <module>downloader-rest-service</module>
     <module>downloader-rest-client</module>
-    <module>downloader-soap-service</module>    
+    <module>downloader-soap-service</module>
+    <module>Download-HTTP-Plugin</module>
+    <module>downloader-usgs-plugin</module>
+    <module>Download-FTP-Plugin</module>
   </modules>
 </project>
