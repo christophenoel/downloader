@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+      <parent>
+        <artifactId>Downloader</artifactId>
+        <groupId>esa.mep.downloader</groupId>
+        <version>1.0.0</version>
+    </parent>
     <groupId>esa.mep.downloader</groupId>
     <artifactId>downloader-http-plugin</artifactId>
     <name>Download HTTP Plugin</name>
@@ -44,6 +49,7 @@
     </dependencies>
     <build>
         <plugins>			
+            <!-- No reasons anymore to package as a jar with dependencies !
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>				
                 <executions>
@@ -64,6 +70,7 @@
                     <attach>false</attach>
                 </configuration>
             </plugin>
+            -->
         </plugins>
     </build>
 </project>

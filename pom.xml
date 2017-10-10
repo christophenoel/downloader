@@ -11,15 +11,69 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <name>Downloader Project</name>
-  <modules>
-    <module>downloader-bindings</module>
-    <module>downloader-plugin-interface</module>
-    <module>downloader-logic-ejb</module>
-    <module>downloader-rest-service</module>
-    <module>downloader-rest-client</module>
-    <module>downloader-soap-service</module>
-    <module>Download-HTTP-Plugin</module>
-    <module>downloader-usgs-plugin</module>
-    <module>Download-FTP-Plugin</module>
-  </modules>
+    <modules>
+        <module>downloader-bindings</module>
+        <module>downloader-plugin-interface</module>
+        <module>downloader-logic-ejb</module>
+        <module>downloader-rest-service</module>
+        <module>downloader-rest-client</module>
+        <module>downloader-soap-service</module>
+        <module>Download-HTTP-Plugin</module>
+        <module>downloader-usgs-plugin</module>
+        <module>Download-FTP-Plugin</module>
+    </modules>
+    <profiles>
+        <profile>
+            <id>spacebel-public</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <distribution.maven.repository>ttp://mv1.spacebel.be:8081/artifactory/mep-all/</distribution.maven.repository>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>mep-public</id>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                    <url>http://mv1.spacebel.be:8081/artifactory/mep-all/</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>mep-public</id>
+                    <url>http://mv1.spacebel.be:8081/artifactory/mep-all/</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+     <distributionManagement>
+        <repository>
+            <id>spb-mep-release</id>
+            <name>SBP Mep Releases Repository</name>
+            <url>http://mv1.spacebel.be:8081/artifactory/mep-libs-release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>spb-mep-snapshot</id>
+            <name>SBP Mep Snapshots Repository</name>
+            <url>http://mv1.spacebel.be:8081/artifactory/mep-libs-snapshot/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+        <!--
+        <repository>
+            <id>vito-release</id>
+            <name>VITO Repository</name>
+            <url>http://artifactory.vgt.vito.be/ext-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>vito-snapshot</id>
+            <name>VITO Snapshot Repository</name>
+            <url>http://artifactory.vgt.vito.be/ext-snapshot-local</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+        -->
+    </distributionManagement>
+    
 </project>

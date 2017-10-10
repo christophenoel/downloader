@@ -1,13 +1,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+      <parent>
+        <artifactId>Downloader</artifactId>
+        <groupId>esa.mep.downloader</groupId>
+        <version>1.0.0</version>
+    </parent>
     <groupId>esa.mep.downloader</groupId>
     <artifactId>downloader-ftp-plugin</artifactId>
     <packaging>jar</packaging>
     <name>Downloader FTP Plugin</name>
     <version>1.0.1</version>
     <build>
-        <plugins>			
+        <plugins>
+            <!-- not required anymore to package as follow !			
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>				
                 <executions>
@@ -28,6 +34,7 @@
                     <attach>false</attach>
                 </configuration>
             </plugin>
+            -->
         </plugins>
     </build>	
     <dependencies>
