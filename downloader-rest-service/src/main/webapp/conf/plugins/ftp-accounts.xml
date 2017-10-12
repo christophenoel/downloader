@@ -26,6 +26,8 @@
 		<ftpBase>ftp://ftp.spacebel.be</ftpBase>
 		<ftpUser>sgspb</ftpUser>
 		<ftpPassword>DG5@spb</ftpPassword>
+                <!--
 		<ftpMaxConnections>1</ftpMaxConnections>
+                -->
 	</account>	
 </configuration>

@@ -29,7 +29,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <distribution.maven.repository>ttp://mv1.spacebel.be:8081/artifactory/mep-all/</distribution.maven.repository>
+                <distribution.maven.repository>http://mv1.spacebel.be:8081/artifactory/mep-all/</distribution.maven.repository>
             </properties>
             <repositories>
                 <repository>
