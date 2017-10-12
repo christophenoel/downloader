@@ -47,6 +47,7 @@ public class HTTPDownloadPlugin implements IDownloadPlugin {
 
         // check if credentials exist for URL
         if (productURI.getUserInfo() == null) {
+            LOG.debug("The credentials exist in the URL.");
             // check if user/password are provided
             if (user != null) {
                 try {
@@ -65,6 +66,8 @@ public class HTTPDownloadPlugin implements IDownloadPlugin {
                     }
                 }
             }
+        }else{
+            LOG.debug("The credentials don't exist in the URL.");
         }
 
         LOG.debug("productURI = " + productURI);
