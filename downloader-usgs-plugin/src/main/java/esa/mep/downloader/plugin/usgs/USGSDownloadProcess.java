@@ -11,28 +11,22 @@ import com.google.common.base.Preconditions;
 import com.google.common.net.HttpHeaders;
 import esa.mep.downloader.exception.DMPluginException;
 import esa.mep.downloader.plugin.EDownloadStatus;
-import esa.mep.downloader.plugin.IDownloadProcess;
 import esa.mep.downloader.plugin.IProductDownloadListener;
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Duration;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.LoggerFactory;
 
@@ -118,17 +112,21 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
         // Submit
         passwordElement.submit();
         }
-        // Wait for download button and click
         WebDriverWait wait = new WebDriverWait(driver,10);
+        /**
+        // Wait for download button and click
+        
         WebElement downloadButton = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         By.cssSelector("div.ee-icon.ee-icon-download")));
         downloadButton.click();
         // After clicking close old tab and select the new tab
         driver.close();
+        
         ArrayList<String> tabs2 = new ArrayList<String>(
                 driver.getWindowHandles());
         driver.switchTo().window(tabs2.get(0));
+        * */
         // Wait for the new download button
         WebElement realDL = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath(
