@@ -25,6 +25,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.Duration;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -41,8 +42,9 @@ import org.slf4j.LoggerFactory;
  */
 public class USGSDownloadProcess implements IHTTPDownloadProcess {
 
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(USGSDownloadProcess.class);
-    
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(
+            USGSDownloadProcess.class);
+
     private final IProductDownloadListener downloadListener;
     private WebDriver driver;
     private final HttpClientController httpClientController;
@@ -52,25 +54,35 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
     private final String usgsUser;
     private final String usgsPassword;
 
-    public USGSDownloadProcess(WebDriver driver, IProductDownloadListener downloadListener,
-                        HttpClientController httpClientController,
-            DownloadProcessInfo processInfo, String usgsUser, String usgsPassword) {
+    public USGSDownloadProcess(
+            IProductDownloadListener downloadListener,
+            HttpClientController httpClientController,
+            DownloadProcessInfo processInfo, String usgsUser,
+            String usgsPassword) {
+        this(new HtmlUnitDriver(),downloadListener,
+        httpClientController, processInfo, usgsUser, usgsPassword);
+
+    }
+
+    public USGSDownloadProcess(WebDriver driver,
+            IProductDownloadListener downloadListener,
+            HttpClientController httpClientController,
+            DownloadProcessInfo processInfo, String usgsUser,
+            String usgsPassword) {
         this.downloadListener = downloadListener;
         this.driver = driver;
         this.processInfo = processInfo;
         this.httpClientController = httpClientController;
         this.usgsUser = usgsUser;
-        this.usgsPassword=usgsPassword;
+        this.usgsPassword = usgsPassword;
     }
 
- 
-    
-    public  static void main(String[] args) throws URISyntaxException, DMPluginException, Exception {
+    public static void main(String[] args) throws URISyntaxException, DMPluginException, Exception {
         long time = 10;
         Preconditions.checkArgument(true);
         Preconditions.checkArgument(time >= 0, "Duration < 0: %d, time");
         Duration duration = new Duration(10, TimeUnit.SECONDS);
-       Duration duration2 = new Duration(500, MILLISECONDS);
+        Duration duration2 = new Duration(500, MILLISECONDS);
         HTTPHostInfo hostInfo = new HTTPHostInfo();
         hostInfo.setServer("earthexplorer.usgs.gov");
         hostInfo.setProtocol("http");
@@ -79,64 +91,63 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
                 hostInfo);
         HttpClientController controller = new HttpClientController(config);
         DownloadProcessInfo processInfo = new DownloadProcessInfo(new URI(
-                "http://earthexplorer.usgs.gov/order/process?node=EC&dataset_name=LANDSAT_8&ordered=LC80980112013101LGN01"),
+                "https://earthexplorer.usgs.gov/download/options/12864/LC81990252013120LGN02?node=EC"),
                 new File("C:\\test.dat"), "cnoel", "Spacebel3#", null, 0,
                 null, null);
-       // USGSDownloadProcess process = new USGSDownloadProcess(drivernull,
-         //        controller, processInfo,"cnoel","Spacebel3#");
-        
-        //process.startDownload();
+
+        USGSDownloadProcess process = new USGSDownloadProcess(null,controller, processInfo, "cnoel", "Spacebel3#");
+
+        process.startDownload();
     }
 
     public EDownloadStatus startDownload() throws DMPluginException {
         log.debug("Start USGS download");
-        downloadListener.progress(0, new Long(0),
-                EDownloadStatus.RUNNING, null);
+//        downloadListener.progress(0, new Long(0),
+  //              EDownloadStatus.RUNNING, null);
         // Access the URL (using Selenium Driver)
         driver.get(this.processInfo.getProductURI().toString());
         // Fill username and password
-        boolean signedin=false;
-        WebElement userElement=null;
+        boolean signedin = false;
+        WebElement userElement = null;
         try {
-        userElement = driver.findElement(By.id("username"));
-        signedin=false;
-        }
-        catch(Exception e) {
+            userElement = driver.findElement(By.id("username"));
+            signedin = false;
+        } catch (Exception e) {
             log.debug("Browser is still signed in - skipping authentication");
-            signedin=true;
+            signedin = true;
         }
-        if(!signedin) {
-        userElement.sendKeys(this.usgsUser);
-        WebElement passwordElement = driver.findElement(By.id("password"));
-        passwordElement.sendKeys(this.usgsPassword);
-        // Submit
-        passwordElement.submit();
+        if (!signedin) {
+            userElement.sendKeys(this.usgsUser);
+            WebElement passwordElement = driver.findElement(By.id("password"));
+            passwordElement.sendKeys(this.usgsPassword);
+            // Submit
+            passwordElement.submit();
         }
-        WebDriverWait wait = new WebDriverWait(driver,10);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         /**
-        // Wait for download button and click
-        
-        WebElement downloadButton = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        By.cssSelector("div.ee-icon.ee-icon-download")));
-        downloadButton.click();
-        // After clicking close old tab and select the new tab
-        driver.close();
-        
-        ArrayList<String> tabs2 = new ArrayList<String>(
-                driver.getWindowHandles());
-        driver.switchTo().window(tabs2.get(0));
-        * */
+         * // Wait for download button and click
+         *
+         * WebElement downloadButton = wait.until(
+         * ExpectedConditions.elementToBeClickable(
+         * By.cssSelector("div.ee-icon.ee-icon-download")));
+         * downloadButton.click(); // After clicking close old tab and select
+         * the new tab driver.close();
+         *
+         * ArrayList<String> tabs2 = new ArrayList<String>(
+         * driver.getWindowHandles()); driver.switchTo().window(tabs2.get(0));
+         *
+         */
         // Wait for the new download button
         WebElement realDL = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath(
-                        "//div[@id='optionsPage']/div/div/div[contains(.,'Level 1')]/parent::div/input")));
-        
+                        "//div[@id='optionsPage']/div/div/div[contains(.,'Level-1') or contains(.,'Level 1')]/parent::div/input")));
+
         Cookie cookie = driver.manage().getCookieNamed("EROS_SSO_production");
         // 2 cookies are used (update july 2017 !)
-        Cookie cookie2 = driver.manage().getCookieNamed("EROS_SSO_production_secure");
-        log.debug("Found cookie:"+cookie.getValue());
-        log.debug("Found cookie2:"+cookie2.getValue());
+        Cookie cookie2 = driver.manage().getCookieNamed(
+                "EROS_SSO_production_secure");
+        log.debug("Found cookie:" + cookie.getValue());
+        log.debug("Found cookie2:" + cookie2.getValue());
         // Retrieve real url
         String onclick = realDL.getAttribute("onclick").replaceFirst(
                 "window.location='", "");
@@ -158,18 +169,18 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
                         cookie2.getName() + "=" + cookie2.getValue()).build();
         this.processInfo.setHttpUriRequest(request);
         log.debug("Creating for USGS the HTTP download");
-        
+
         log.debug("For USGS adding HTTP task download");
         this.dlInfo = httpClientController.addDownloadTask(
                 this, processInfo);
-         dlInfo.setStatus(EDownloadStatus.RUNNING);
-         log.debug("USGS status was changed to running !");
+        dlInfo.setStatus(EDownloadStatus.RUNNING);
+        log.debug("USGS status was changed to running !");
         return dlInfo.getStatus();
-        
+
     }
 
     public EDownloadStatus pauseDownload() throws DMPluginException {
-         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public EDownloadStatus resumeDownload() throws DMPluginException {
@@ -189,15 +200,15 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
             log.debug("dl info is null");
             return EDownloadStatus.RUNNING;
         }
-        
+
         return dlInfo.getStatus();
     }
 
     public File[] getDownloadedFiles() {
-        if(dlInfo==null) {
+        if (dlInfo == null) {
             return null;
         }
-       final File theFile = dlInfo.getFile();
+        final File theFile = dlInfo.getFile();
         return new File[]{theFile};
     }
 
@@ -207,7 +218,7 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
 
     @Override
     public void progress(String message, DMPluginException ex) {
-           log.debug("progress ............................ " );
+        log.debug("progress ............................ ");
         // remove the task if download process is stopped (the "CANCELED" case is already handled int method "cancelDownload")
         if (dlInfo.getStatus() == EDownloadStatus.COMPLETED
                 || dlInfo.getStatus() == EDownloadStatus.IN_ERROR) {
@@ -218,7 +229,8 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
         // call the Product Download Listener
         if (downloadListener == null) { // should be never null, condition exists only here for debug
             log.warn("No Download Listener instance available.");
-            log.debug("Progress status for" + processInfo.getProductURI().getPath() + "@" + processInfo.getProductURI().getHost()
+            log.debug(
+                    "Progress status for" + processInfo.getProductURI().getPath() + "@" + processInfo.getProductURI().getHost()
                     + " : [percentage=" + getProgress() + "%, downloadedSize=" + dlInfo.getFile().length() + "B, status=" + dlInfo.getStatus()
                     + ", message=" + message + (ex != null ? ", exception=" + ex.getMessage() : "") + "]");
         } else {
@@ -228,19 +240,22 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
                 log.debug("downloaded file size: " + dlInfo.getFile().length());
                 /*
                     inform to DM the downloaded file name and size
-                */
-                downloadListener.productDetails(dlInfo.getFile().getName(), 1, dlInfo.getFile().length());
+                 */
+                downloadListener.productDetails(dlInfo.getFile().getName(), 1,
+                        dlInfo.getFile().length());
                 /*
                     inform to DM the progress
-                */                
-                downloadListener.progress(percentage, dlInfo.getFile().length(), dlInfo.getStatus(), message);                
+                 */
+                downloadListener.progress(percentage, dlInfo.getFile().length(),
+                        dlInfo.getStatus(), message);
             } else {
-                downloadListener.progress(percentage, dlInfo.getFile().length(), dlInfo.getStatus(), message, ex);
+                downloadListener.progress(percentage, dlInfo.getFile().length(),
+                        dlInfo.getStatus(), message, ex);
             }
         }
     }
 
-     /**
+    /**
      * For debug purpose. Calculate the percentage of progress.
      *
      * @deprecated Progress must be sent to the Product Download Listener (see
