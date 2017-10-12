@@ -109,21 +109,30 @@ public class USGSDownloadProcess implements IHTTPDownloadProcess {
         // Fill username and password
         boolean signedin = false;
         WebElement userElement = null;
+         WebElement loginButton = null;
+          WebDriverWait wait = new WebDriverWait(driver, 10);
         try {
-            userElement = driver.findElement(By.id("username"));
+            loginButton = driver.findElement(By.id("loginLink"));
             signedin = false;
         } catch (Exception e) {
             log.debug("Browser is still signed in - skipping authentication");
             signedin = true;
         }
+        System.out.println(signedin+ "(signed in)");
         if (!signedin) {
+            loginButton.click();
+            WebElement waitForm = wait.until(ExpectedConditions.elementToBeClickable(
+                By.id("loginButton")));
+            
+                        userElement = driver.findElement(By.id("username"));
+            log.debug("Signing in - skipping authentication");
             userElement.sendKeys(this.usgsUser);
             WebElement passwordElement = driver.findElement(By.id("password"));
             passwordElement.sendKeys(this.usgsPassword);
             // Submit
             passwordElement.submit();
         }
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+       
         /**
          * // Wait for download button and click
          *
