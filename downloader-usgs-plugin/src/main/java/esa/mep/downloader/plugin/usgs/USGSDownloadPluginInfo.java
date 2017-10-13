@@ -1,6 +1,5 @@
 package esa.mep.downloader.plugin.usgs;
 
-import be.spacebel.ese.downloadmanager.plugin.http.HTTPDownloadConfiguration;
 import esa.mep.downloader.plugin.IDownloadPluginInfo;
 import esa.mep.downloader.plugin.PluginConfiguration;
 import org.slf4j.LoggerFactory;
@@ -41,7 +40,7 @@ public class USGSDownloadPluginInfo implements IDownloadPluginInfo{
     public String[] getMatchingPatterns() {
         //earthexplorer.usgs.gov
         log.debug("matching pattern based on "+this.getHostname());
-        return new String[]{"http://"+this.getHostname()+".*", "HTTP://"+this.getHostname()+".*","https://"+this.getHostname()+".*", "HTTPS://"+this.getHostname()+".*" };
+        return new String[]{"http://"+this.getHostname()+"/download.*", "HTTP://"+this.getHostname()+"/download.*","https://"+this.getHostname()+"/download.*", "HTTPS://"+this.getHostname()+"/download.*" };
     }
 
     public int[] getDMMinVersion() {
